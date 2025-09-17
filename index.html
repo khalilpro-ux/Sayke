@@ -5,22 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>سايكي - النظام المتكامل لإدارة المنصات</title>
-    
-    <!-- هون مكان كود الجافاسكربت -->
-  <script>
-    // رابط الـ Web App من Google Apps Script
-    const url = "https://script.google.com/macros/s/AKfycbyWJEKGvJ5A1iCfl0EiT7dohRgptxBESEtwcHMr5c-4KypD-lax8lwXiO5Hvx2N4_6mEQ/exec";
-
-    // نجرب نجيب بيانات
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        // نعرض البيانات في الصفحة
-        document.getElementById("result").innerText = JSON.stringify(data);
-      })
-      .catch(err => console.error(err));
-  </script>
-    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -2573,5 +2557,16 @@
             }
         }
     </script>
+  const url = "https://script.google.com/macros/s/AKfycbyWJEKGvJ5A1iCfl0EiT7dohRgptxBESEtwcHMr5c-4KypD-lax8lwXiO5Hvx2N4_6mEQ/exec";
+
+  // نجرب نطلب الداتا
+  fetch(url)
+    .then(res => res.text()) // مؤقتًا نخليها text بدل json
+    .then(data => {
+      console.log("البيانات المستلمة:", data);
+      document.body.innerHTML += "<pre>" + data + "</pre>";
+    })
+    .catch(err => console.error("خطأ:", err));
+</script>
 </body>
 </html>
