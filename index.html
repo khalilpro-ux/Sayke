@@ -1,24 +1,4 @@
 <!DOCTYPE html>
-  <script>
-    const url = "https://script.google.com/macros/s/AKfycbz_QxPSaXhintapeMfbW5CnkuzNdefwkxTX5H_NkpOhPAUn_WRuCBAr_2BUolCZ1ojV5g/exec";
-
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("HTTP error! status: " + response.status);
-        }
-        return response.text();  // مؤقتًا ممكن text أو JSON حسب سكربتك
-      })
-      .then(data => {
-        document.getElementById("result").innerText = data;
-        console.log("Data received:", data);
-      })
-      .catch(err => {
-        document.getElementById("result").innerText = "حدث خطأ: " + err;
-        console.error("Fetch error:", err);
-      });
-  </script>
-  <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <base target="_top">
@@ -812,6 +792,25 @@
             </div>
         </div>
     </header>
+  <script>
+    const url = "https://script.google.com/macros/s/AKfycbz_QxPSaXhintapeMfbW5CnkuzNdefwkxTX5H_NkpOhPAUn_WRuCBAr_2BUolCZ1ojV5g/exec";
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("HTTP error! status: " + response.status);
+        }
+        return response.text();  // مؤقتًا ممكن text أو JSON حسب سكربتك
+      })
+      .then(data => {
+        document.getElementById("result").innerText = data;
+        console.log("Data received:", data);
+      })
+      .catch(err => {
+        document.getElementById("result").innerText = "حدث خطأ: " + err;
+        console.error("Fetch error:", err);
+      });
+  </script>
     <!-- الصفحة الرئيسية - اختيار المنصة -->
     <section id="platforms-section" class="content-section active">
         <div class="container py-5">
