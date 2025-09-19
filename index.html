@@ -2556,6 +2556,18 @@
                 }
             }
         }
+        <script>
+  const url = "https://script.google.com/macros/s/AKfycbz_QxPSaXhintapeMfbW5CnkuzNdefwkxTX5H_NkpOhPAUn_WRuCBAr_2BUolCZ1ojV5g/exec";
+
+  // نجرب نطلب الداتا
+  fetch(url)
+    .then(res => res.text()) // مؤقتًا نخليها text بدل json
+    .then(data => {
+      console.log("البيانات المستلمة:", data);
+      document.body.innerHTML += "<pre>" + data + "</pre>";
+    })
+    .catch(err => console.error("خطأ:", err));
+</script>
     </script>
 </body>
 </html>
