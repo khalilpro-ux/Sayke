@@ -16,7 +16,7 @@
         if (!response.ok) {
           throw new Error("HTTP error! status: " + response.status);
         }
-        return response.text();  // مؤقتًا ممكن text أو JSON حسب سكربتك
+        return response.json();  // مؤقتًا ممكن text أو JSON حسب سكربتك
       })
       .then(data => {
         document.getElementById("result").innerText = data;
