@@ -3,7 +3,7 @@
 <head>
     <base target="_top">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>سايكي - النظام المتكامل لإدارة المنصات</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,6 +32,14 @@
             --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             --card-hover: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
+        /* إزالة الهوامش البيضاء وجعل العرض كاملاً */
+        html, body {
+            margin: 5;
+            padding: 5;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
         body {
             font-family: 'Cairo', sans-serif;
             background-color: #f5f7fb;
@@ -39,6 +47,21 @@
             transition: all 0.3s ease;
             min-height: 100vh;
             padding-bottom: 50px;
+        }
+        .container, .container-fluid {
+            padding-left: 5 !important;
+            padding-right: 5 !important;
+            max-width: 100% !important;
+            width: 100%;
+            margin: 0;
+        }
+        .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+        [class*="col-"] {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
         }
         .app-header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -48,6 +71,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            width: 100%;
         }
         .navbar-brand {
             font-weight: 700;
@@ -201,11 +225,9 @@
             background: var(--primary);
             border-radius: 2px;
         }
+        /* تم حذف قسم البطاقات الإحصائية بالكامل */
         .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            display: none !important;
         }
         .stat-card {
             background: white;
@@ -542,6 +564,40 @@
             .display-4 {
                 font-size: 2.5rem;
             }
+            .data-table th,
+            .data-table td {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            .card-header {
+                padding: 10px 15px;
+            }
+            .card-body {
+                padding: 15px;
+            }
+        }
+        @media (max-width: 576px) {
+            .data-table th,
+            .data-table td {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+            }
+            .btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            .platform-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
         }
         /* تنسيق الصف المحدد */
         .selected-row {
@@ -565,90 +621,39 @@
             background-color: #e8f4f8 !important;
             font-weight: bold;
         }
-        /* تحسينات للواجهة الجديدة */
-        .salary-summary-card {
-            border-left: 4px solid var(--success);
-        }
-        .salary-summary-card .card-header {
-            background-color: rgba(6, 214, 160, 0.1);
-        }
-        .settings-section {
-            margin-bottom: 25px;
-        }
-        .settings-option {
-            padding: 15px;
+        /* تنسيق قسم سجل الشحن */
+        .shipping-log-section {
+            background: #f8f9fa;
             border-radius: 12px;
-            background: white;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #e0e6ef;
         }
-        .settings-option:hover {
-            box-shadow: var(--card-hover);
-            transform: translateY(-3px);
-        }
-        .settings-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+        .shipping-log-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-left: 15px;
-            background: rgba(67, 97, 238, 0.1);
-            color: var(--primary);
-        }
-        .platform-selector {
-            display: flex;
-            gap: 15px;
             margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
         }
-        .platform-selector-btn {
-            flex: 1;
-            padding: 15px;
-            border-radius: 12px;
-            background: white;
-            border: 2px solid #e0e6ef;
-            text-align: center;
+        .shipping-log-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .close-log-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .platform-selector-btn.active {
-            border-color: var(--primary);
-            background-color: rgba(67, 97, 238, 0.05);
-        }
-        .platform-selector-btn i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .salary-process-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 25px;
-        }
-        .process-step {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #f8f9fa;
-        }
-        .step-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-left: 15px;
+        .close-log-btn:hover {
+            background: #d63d5a;
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -678,7 +683,6 @@
             </div>
         </div>
     </header>
-
     <!-- الصفحة الرئيسية - اختيار المنصة -->
     <section id="platforms-section" class="content-section active">
         <div class="container py-5">
@@ -710,7 +714,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="platform-card salary-card card h-100" onclick="showSalaryDashboard()">
+                    <div class="platform-card salary-card card h-100" onclick="showSalarySettings()">
                         <div class="card-body text-center">
                             <div class="platform-icon">
                                 <i class="fas fa-money-bill-wave"></i>
@@ -732,7 +736,6 @@
                     </div>
                 </div>
             </div>
-            
             <!-- مزايا وخصائص التطبيق -->
             <div class="mt-6">
                 <div class="text-center mb-5">
@@ -806,7 +809,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <!-- حالة الربط مع Google Sheets -->
                 <div class="mt-5">
                     <div class="connection-status connected">
@@ -818,7 +820,6 @@
             </div>
         </div>
     </section>
-
     <!-- لوحة تحكم Likee -->
     <section id="likee-dashboard" class="content-section">
         <div class="container py-5">
@@ -831,38 +832,7 @@
                     <p class="text-muted mb-0">الوصول إلى جميع ميزات إدارة بيانات منصة Likee</p>
                 </div>
             </div>
-            
-            <div class="stats-cards mb-5">
-                <div class="stat-card">
-                    <div class="stat-icon stat-likee">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-value" id="likee-total-broadcasters">0</div>
-                    <div class="stat-label">إجمالي المذيعين</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon stat-likee">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="stat-value" id="likee-active-broadcasters">0</div>
-                    <div class="stat-label">المذيعين النشطين</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon stat-likee">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <div class="stat-value" id="likee-total-salary">0</div>
-                    <div class="stat-label">إجمالي الرواتب</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon stat-likee">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    <div class="stat-value" id="likee-total-shipping">0</div>
-                    <div class="stat-label">إجمالي الشحنات</div>
-                </div>
-            </div>
-            
+            <!-- تم حذف البطاقات الإحصائية من هنا -->
             <!-- تبويبات لوحة Likee -->
             <ul class="nav nav-tabs platform-tabs likee-tab mb-4" id="likeeTabs" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -886,7 +856,6 @@
                     </button>
                 </li>
             </ul>
-            
             <div class="tab-content" id="likeeTabContent">
                 <!-- تبويب البيانات الرسمية -->
                 <div class="tab-pane fade show active" id="roster-tab-pane" role="tabpanel" aria-labelledby="roster-tab">
@@ -908,9 +877,6 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="fw-bold">قائمة البيانات</h4>
-                                <button class="btn btn-primary" onclick="showUploadSection('لايكي - داتا', 'البيانات الرسمية', 'likee')">
-                                    <i class="fas fa-upload me-2"></i> رفع ملف Excel
-                                </button>
                             </div>
                             <div id="likee-sheet-data-container" class="table-responsive">
                                 <div class="text-center py-5 text-muted">
@@ -921,7 +887,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <!-- تبويب معلومات المذيعين -->
                 <div class="tab-pane fade" id="broadcasters-tab-pane" role="tabpanel" aria-labelledby="broadcasters-tab">
                     <div class="card-section likee-section">
@@ -988,7 +953,6 @@
                                         <label class="form-label">تحويل الراتب إلى</label>
                                         <select class="form-control" id="broadcaster-salary-transfer">
                                             <option value="">اختر...</option>
-                                            <!-- سيتم ملؤها ديناميكيًا من البيانات الرسمية -->
                                         </select>
                                     </div>
                                 </div>
@@ -1003,7 +967,6 @@
                                     <button type="button" class="btn btn-primary" onclick="saveBroadcaster()">حفظ المعلومات</button>
                                 </div>
                             </div>
-                            
                             <div class="filter-section">
                                 <h5><i class="fas fa-search filter-icon"></i> بحث متقدم</h5>
                                 <div class="search-container">
@@ -1011,14 +974,9 @@
                                     <div class="search-suggestions" id="broadcaster-table-search-suggestions"></div>
                                 </div>
                             </div>
-                            
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="fw-bold">قائمة المذيعين</h4>
-                                <button class="btn btn-primary" onclick="showUploadSection('معلومات المذيعين - لايكي', 'معلومات المذيعين', 'likee')">
-                                    <i class="fas fa-upload me-2"></i> رفع ملف Excel
-                                </button>
                             </div>
-                            
                             <div id="broadcaster-data-container" class="table-responsive">
                                 <div class="text-center py-5 text-muted">
                                     <i class="fas fa-user-friends fa-3x mb-3"></i>
@@ -1028,7 +986,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <!-- تبويب الشحن -->
                 <div class="tab-pane fade" id="shipping-tab-pane" role="tabpanel" aria-labelledby="shipping-tab">
                     <div class="card-section likee-section">
@@ -1040,6 +997,12 @@
                             <span class="platform-badge likee-badge">لايكي</span>
                         </div>
                         <div class="card-body">
+                            <!-- زر سجل الشحن -->
+                            <div class="d-flex justify-content-end mb-3">
+                                <button type="button" class="btn btn-primary" onclick="showShippingLog()">
+                                    <i class="fas fa-list me-2"></i> سجل الشحن
+                                </button>
+                            </div>
                             <!-- نموذج إضافة شحنة -->
                             <div class="shipping-form">
                                 <h5><i class="fas fa-plus-circle me-2"></i> تسجيل شحنة جديدة</h5>
@@ -1077,7 +1040,6 @@
                                     <button type="button" class="btn btn-primary" onclick="saveShipping()">تسجيل الشحنة</button>
                                 </div>
                             </div>
-                            
                             <div class="filter-section">
                                 <h5><i class="fas fa-search filter-icon"></i> بحث متقدم</h5>
                                 <div class="search-container">
@@ -1085,14 +1047,9 @@
                                     <div class="search-suggestions" id="shipping-search-suggestions"></div>
                                 </div>
                             </div>
-                            
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="fw-bold">قائمة الشحنات</h4>
-                                <button class="btn btn-primary" onclick="showUploadSection('الشحن', 'الشحن', 'likee')">
-                                    <i class="fas fa-upload me-2"></i> رفع ملف Excel
-                                </button>
                             </div>
-                            
                             <div id="shipping-data-container" class="table-responsive">
                                 <div class="text-center py-5 text-muted">
                                     <i class="fas fa-shipping-fast fa-3x mb-3"></i>
@@ -1102,7 +1059,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <!-- تبويب بيانات الراتب -->
                 <div class="tab-pane fade" id="salary-tab-pane" role="tabpanel" aria-labelledby="salary-tab">
                     <div class="card-section likee-section">
@@ -1121,14 +1077,9 @@
                                     <div class="search-suggestions" id="salary-search-suggestions"></div>
                                 </div>
                             </div>
-                            
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="fw-bold">قائمة الرواتب</h4>
-                                <button class="btn btn-primary" onclick="showUploadSection('داتا راتب - لايكي', 'بيانات الراتب', 'likee')">
-                                    <i class="fas fa-upload me-2"></i> رفع ملف Excel
-                                </button>
                             </div>
-                            
                             <div id="salary-data-container" class="table-responsive">
                                 <div class="text-center py-5 text-muted">
                                     <i class="fas fa-file-invoice-dollar fa-3x mb-3"></i>
@@ -1141,7 +1092,6 @@
             </div>
         </div>
     </section>
-
     <!-- لوحة تحكم Saya -->
     <section id="saya-dashboard" class="content-section">
         <div class="container py-5">
@@ -1154,66 +1104,33 @@
                     <p class="text-muted mb-0">الوصول إلى جميع ميزات إدارة بيانات منصة Saya</p>
                 </div>
             </div>
-            
-            <div class="stats-cards mb-5">
-                <div class="stat-card">
-                    <div class="stat-icon stat-saya">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-value" id="saya-total-broadcasters">0</div>
-                    <div class="stat-label">إجمالي المذيعين</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon stat-saya">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="stat-value" id="saya-active-broadcasters">0</div>
-                    <div class="stat-label">المذيعين النشطين</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon stat-saya">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <div class="stat-value" id="saya-total-salary">0</div>
-                    <div class="stat-label">إجمالي الرواتب</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon stat-saya">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    <div class="stat-value" id="saya-total-shipping">0</div>
-                    <div class="stat-label">إجمالي الشحنات</div>
-                </div>
-            </div>
-            
             <!-- تبويبات لوحة Saya -->
             <ul class="nav nav-tabs platform-tabs saya-tab mb-4" id="sayaTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="saya-roster-tab" data-bs-toggle="tab" data-bs-target="#saya-roster-tab-pane" type="button" role="tab" aria-controls="saya-roster-tab-pane" aria-selected="true" onclick="loadTabContent('سايا - داتا', 'البيانات الرسمية', 'saya')">
+                    <button class="nav-link active" id="roster-tab-saya" data-bs-toggle="tab" data-bs-target="#roster-tab-pane-saya" type="button" role="tab" aria-controls="roster-tab-pane-saya" aria-selected="true" onclick="loadTabContent('سايا - داتا', 'البيانات الرسمية', 'saya')">
                         <i class="fas fa-database me-2"></i> البيانات الرسمية
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="saya-broadcasters-tab" data-bs-toggle="tab" data-bs-target="#saya-broadcasters-tab-pane" type="button" role="tab" aria-controls="saya-broadcasters-tab-pane" aria-selected="false" onclick="loadTabContent('معلومات المذيعين - سايا', 'معلومات المذيعين', 'saya')">
+                    <button class="nav-link" id="broadcasters-tab-saya" data-bs-toggle="tab" data-bs-target="#broadcasters-tab-pane-saya" type="button" role="tab" aria-controls="broadcasters-tab-pane-saya" aria-selected="false" onclick="loadTabContent('معلومات المذيعين - سايا', 'معلومات المذيعين', 'saya')">
                         <i class="fas fa-user-friends me-2"></i> معلومات المذيعين
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="saya-shipping-tab" data-bs-toggle="tab" data-bs-target="#saya-shipping-tab-pane" type="button" role="tab" aria-controls="saya-shipping-tab-pane" aria-selected="false" onclick="loadTabContent('الشحن - سايا', 'الشحن', 'saya')">
+                    <button class="nav-link" id="shipping-tab-saya" data-bs-toggle="tab" data-bs-target="#shipping-tab-pane-saya" type="button" role="tab" aria-controls="shipping-tab-pane-saya" aria-selected="false" onclick="loadTabContent('الشحن', 'الشحن', 'both')">
                         <i class="fas fa-shipping-fast me-2"></i> الشحن
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="saya-salary-tab" data-bs-toggle="tab" data-bs-target="#saya-salary-tab-pane" type="button" role="tab" aria-controls="saya-salary-tab-pane" aria-selected="false" onclick="loadTabContent('داتا راتب - سايا', 'بيانات الراتب', 'saya')">
+                    <button class="nav-link" id="salary-tab-saya" data-bs-toggle="tab" data-bs-target="#salary-tab-pane-saya" type="button" role="tab" aria-controls="salary-tab-pane-saya" aria-selected="false" onclick="loadTabContent('داتا راتب - سايا', 'بيانات الراتب', 'saya')">
                         <i class="fas fa-file-invoice-dollar me-2"></i> بيانات الراتب
                     </button>
                 </li>
             </ul>
-            
             <div class="tab-content" id="sayaTabContent">
                 <!-- تبويب البيانات الرسمية -->
-                <div class="tab-pane fade show active" id="saya-roster-tab-pane" role="tabpanel" aria-labelledby="saya-roster-tab">
-                    <div class="card-section saya-section">
+                <div class="tab-pane fade show active" id="roster-tab-pane-saya" role="tabpanel" aria-labelledby="roster-tab-saya">
+                    <div class="card-section saya-section active-section">
                         <div class="card-header">
                             <div class="section-icon">
                                 <i class="fas fa-database"></i>
@@ -1231,9 +1148,6 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="fw-bold">قائمة البيانات</h4>
-                                <button class="btn btn-saya" onclick="showUploadSection('سايا - داتا', 'البيانات الرسمية', 'saya')">
-                                    <i class="fas fa-upload me-2"></i> رفع ملف Excel
-                                </button>
                             </div>
                             <div id="saya-sheet-data-container" class="table-responsive">
                                 <div class="text-center py-5 text-muted">
@@ -1244,9 +1158,8 @@
                         </div>
                     </div>
                 </div>
-                
                 <!-- تبويب معلومات المذيعين -->
-                <div class="tab-pane fade" id="saya-broadcasters-tab-pane" role="tabpanel" aria-labelledby="saya-broadcasters-tab">
+                <div class="tab-pane fade" id="broadcasters-tab-pane-saya" role="tabpanel" aria-labelledby="broadcasters-tab-saya">
                     <div class="card-section saya-section">
                         <div class="card-header">
                             <div class="section-icon">
@@ -1263,86 +1176,79 @@
                                     <div class="col-md-6">
                                         <div class="search-container">
                                             <label class="form-label">ابحث عن المذيع</label>
-                                            <input type="text" class="form-control" id="saya-broadcaster-search" placeholder="اكتب اسم المذيع أو الإيدي..." autocomplete="off">
-                                            <div class="search-suggestions" id="saya-broadcaster-search-suggestions"></div>
+                                            <input type="text" class="form-control" id="broadcaster-search-saya" placeholder="اكتب اسم المذيع أو الإيدي..." autocomplete="off">
+                                            <div class="search-suggestions" id="broadcaster-search-suggestions-saya"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">الإيدي (ID)</label>
-                                        <input type="text" class="form-control" id="saya-broadcaster-id" readonly>
+                                        <input type="text" class="form-control" id="broadcaster-id-saya" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label class="form-label">الاسم الثلاثي</label>
-                                        <input type="text" class="form-control" id="saya-broadcaster-fullname">
+                                        <input type="text" class="form-control" id="broadcaster-fullname-saya">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">المدينة</label>
-                                        <input type="text" class="form-control" id="saya-broadcaster-city">
+                                        <input type="text" class="form-control" id="broadcaster-city-saya">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label class="form-label">المكتب</label>
-                                        <input type="text" class="form-control" id="saya-broadcaster-office">
+                                        <input type="text" class="form-control" id="broadcaster-office-saya">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">رقم الهاتف</label>
-                                        <input type="tel" class="form-control" id="saya-broadcaster-phone">
+                                        <input type="tel" class="form-control" id="broadcaster-phone-saya">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
                                         <label class="form-label">الراتب الأساسي</label>
-                                        <input type="number" class="form-control" id="saya-broadcaster-salary" min="0" step="0.01">
+                                        <input type="number" class="form-control" id="broadcaster-salary-saya" min="0" step="0.01">
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">الشحن</label>
-                                        <input type="number" class="form-control" id="saya-broadcaster-shipping-amount" min="0" step="0.01" readonly>
+                                        <input type="number" class="form-control" id="broadcaster-shipping-amount-saya" min="0" step="0.01" readonly>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">الراتب الصافي</label>
-                                        <input type="number" class="form-control net-salary-field" id="saya-broadcaster-net-salary" min="0" step="0.01" readonly>
+                                        <input type="number" class="form-control net-salary-field" id="broadcaster-net-salary-saya" min="0" step="0.01" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label class="form-label">تحويل الراتب إلى</label>
-                                        <select class="form-control" id="saya-broadcaster-salary-transfer">
+                                        <select class="form-control" id="broadcaster-salary-transfer-saya">
                                             <option value="">اختر...</option>
-                                            <!-- سيتم ملؤها ديناميكيًا من البيانات الرسمية -->
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label class="form-label">ملاحظات</label>
-                                        <textarea class="form-control" id="saya-broadcaster-notes" rows="2"></textarea>
+                                        <textarea class="form-control" id="broadcaster-notes-saya" rows="2"></textarea>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-secondary me-2" onclick="clearSayaBroadcasterForm()">مسح النموذج</button>
-                                    <button type="button" class="btn btn-saya" onclick="saveSayaBroadcaster()">حفظ المعلومات</button>
+                                    <button type="button" class="btn btn-secondary me-2" onclick="clearBroadcasterFormSaya()">مسح النموذج</button>
+                                    <button type="button" class="btn btn-primary" onclick="saveBroadcasterSaya()">حفظ المعلومات</button>
                                 </div>
                             </div>
-                            
                             <div class="filter-section">
                                 <h5><i class="fas fa-search filter-icon"></i> بحث متقدم</h5>
                                 <div class="search-container">
-                                    <input type="text" class="form-control" id="saya-broadcaster-table-search" placeholder="ابحث عن مذيع بالإسم أو الإيدي..." autocomplete="off">
-                                    <div class="search-suggestions" id="saya-broadcaster-table-search-suggestions"></div>
+                                    <input type="text" class="form-control" id="broadcaster-table-search-saya" placeholder="ابحث عن مذيع بالإسم أو الإيدي..." autocomplete="off">
+                                    <div class="search-suggestions" id="broadcaster-table-search-suggestions-saya"></div>
                                 </div>
                             </div>
-                            
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="fw-bold">قائمة المذيعين</h4>
-                                <button class="btn btn-saya" onclick="showUploadSection('معلومات المذيعين - سايا', 'معلومات المذيعين', 'saya')">
-                                    <i class="fas fa-upload me-2"></i> رفع ملف Excel
-                                </button>
                             </div>
-                            
-                            <div id="saya-broadcaster-data-container" class="table-responsive">
+                            <div id="broadcaster-data-container-saya" class="table-responsive">
                                 <div class="text-center py-5 text-muted">
                                     <i class="fas fa-user-friends fa-3x mb-3"></i>
                                     <p>لا توجد بيانات مذيعين لعرضها. يرجى رفع ملف Excel أو الاتصال بجوجل شيتس.</p>
@@ -1351,9 +1257,8 @@
                         </div>
                     </div>
                 </div>
-                
                 <!-- تبويب الشحن -->
-                <div class="tab-pane fade" id="saya-shipping-tab-pane" role="tabpanel" aria-labelledby="saya-shipping-tab">
+                <div class="tab-pane fade" id="shipping-tab-pane-saya" role="tabpanel" aria-labelledby="shipping-tab-saya">
                     <div class="card-section saya-section">
                         <div class="card-header">
                             <div class="section-icon">
@@ -1363,6 +1268,12 @@
                             <span class="platform-badge saya-badge">سايا</span>
                         </div>
                         <div class="card-body">
+                            <!-- زر سجل الشحن -->
+                            <div class="d-flex justify-content-end mb-3">
+                                <button type="button" class="btn btn-primary" onclick="showShippingLogSaya()">
+                                    <i class="fas fa-list me-2"></i> سجل الشحن
+                                </button>
+                            </div>
                             <!-- نموذج إضافة شحنة -->
                             <div class="shipping-form">
                                 <h5><i class="fas fa-plus-circle me-2"></i> تسجيل شحنة جديدة</h5>
@@ -1370,53 +1281,47 @@
                                     <div class="col-md-6">
                                         <div class="search-container">
                                             <label class="form-label">ابحث عن المذيع</label>
-                                            <input type="text" class="form-control" id="saya-shipping-broadcaster-search" placeholder="اكتب اسم المذيع أو الإيدي..." autocomplete="off">
-                                            <div class="search-suggestions" id="saya-shipping-broadcaster-suggestions"></div>
+                                            <input type="text" class="form-control" id="shipping-broadcaster-search-saya" placeholder="اكتب اسم المذيع أو الإيدي..." autocomplete="off">
+                                            <div class="search-suggestions" id="shipping-broadcaster-suggestions-saya"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">الإيدي (ID)</label>
-                                        <input type="text" class="form-control" id="saya-shipping-broadcaster-id" readonly>
+                                        <input type="text" class="form-control" id="shipping-broadcaster-id-saya" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label class="form-label">قيمة الشحن</label>
-                                        <input type="number" class="form-control" id="saya-shipping-amount" min="0" step="0.01" placeholder="المبلغ المراد خصمه">
+                                        <input type="number" class="form-control" id="shipping-amount-saya" min="0" step="0.01" placeholder="المبلغ المراد خصمه">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">تاريخ الشحن</label>
-                                        <input type="date" class="form-control" id="saya-shipping-date">
+                                        <input type="date" class="form-control" id="shipping-date-saya">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label class="form-label">ملاحظات</label>
-                                        <textarea class="form-control" id="saya-shipping-notes" rows="2" placeholder="أي ملاحظات حول الشحنة..."></textarea>
+                                        <textarea class="form-control" id="shipping-notes-saya" rows="2" placeholder="أي ملاحظات حول الشحنة..."></textarea>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-secondary me-2" onclick="clearSayaShippingForm()">مسح النموذج</button>
-                                    <button type="button" class="btn btn-saya" onclick="saveSayaShipping()">تسجيل الشحنة</button>
+                                    <button type="button" class="btn btn-secondary me-2" onclick="clearShippingFormSaya()">مسح النموذج</button>
+                                    <button type="button" class="btn btn-primary" onclick="saveShippingSaya()">تسجيل الشحنة</button>
                                 </div>
                             </div>
-                            
                             <div class="filter-section">
                                 <h5><i class="fas fa-search filter-icon"></i> بحث متقدم</h5>
                                 <div class="search-container">
-                                    <input type="text" class="form-control" id="saya-shipping-search" placeholder="ابحث عن شحنة بالإسم أو الإيدي..." autocomplete="off">
-                                    <div class="search-suggestions" id="saya-shipping-search-suggestions"></div>
+                                    <input type="text" class="form-control" id="shipping-search-saya" placeholder="ابحث عن شحنة بالإسم أو الإيدي..." autocomplete="off">
+                                    <div class="search-suggestions" id="shipping-search-suggestions-saya"></div>
                                 </div>
                             </div>
-                            
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="fw-bold">قائمة الشحنات</h4>
-                                <button class="btn btn-saya" onclick="showUploadSection('الشحن - سايا', 'الشحن', 'saya')">
-                                    <i class="fas fa-upload me-2"></i> رفع ملف Excel
-                                </button>
                             </div>
-                            
-                            <div id="saya-shipping-data-container" class="table-responsive">
+                            <div id="shipping-data-container-saya" class="table-responsive">
                                 <div class="text-center py-5 text-muted">
                                     <i class="fas fa-shipping-fast fa-3x mb-3"></i>
                                     <p>لا توجد بيانات شحن لعرضها. يرجى رفع ملف Excel أو الاتصال بجوجل شيتس.</p>
@@ -1425,9 +1330,8 @@
                         </div>
                     </div>
                 </div>
-                
                 <!-- تبويب بيانات الراتب -->
-                <div class="tab-pane fade" id="saya-salary-tab-pane" role="tabpanel" aria-labelledby="saya-salary-tab">
+                <div class="tab-pane fade" id="salary-tab-pane-saya" role="tabpanel" aria-labelledby="salary-tab-saya">
                     <div class="card-section saya-section">
                         <div class="card-header">
                             <div class="section-icon">
@@ -1440,19 +1344,14 @@
                             <div class="filter-section">
                                 <h5><i class="fas fa-search filter-icon"></i> بحث متقدم</h5>
                                 <div class="search-container">
-                                    <input type="text" class="form-control" id="saya-salary-search" placeholder="ابحث براتب بالإسم أو الإيدي..." autocomplete="off">
-                                    <div class="search-suggestions" id="saya-salary-search-suggestions"></div>
+                                    <input type="text" class="form-control" id="salary-search-saya" placeholder="ابحث براتب بالإسم أو الإيدي..." autocomplete="off">
+                                    <div class="search-suggestions" id="salary-search-suggestions-saya"></div>
                                 </div>
                             </div>
-                            
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="fw-bold">قائمة الرواتب</h4>
-                                <button class="btn btn-saya" onclick="showUploadSection('داتا راتب - سايا', 'بيانات الراتب', 'saya')">
-                                    <i class="fas fa-upload me-2"></i> رفع ملف Excel
-                                </button>
                             </div>
-                            
-                            <div id="saya-salary-data-container" class="table-responsive">
+                            <div id="salary-data-container-saya" class="table-responsive">
                                 <div class="text-center py-5 text-muted">
                                     <i class="fas fa-file-invoice-dollar fa-3x mb-3"></i>
                                     <p>لا توجد بيانات رواتب لعرضها. يرجى رفع ملف Excel أو الاتصال بجوجل شيتس.</p>
@@ -1464,404 +1363,8 @@
             </div>
         </div>
     </section>
-
-    <!-- لوحة تحكم الرواتب -->
-    <section id="salary-dashboard" class="content-section">
-        <div class="container py-5">
-            <div class="platform-header mb-4">
-                <div class="platform-header-icon" style="background: rgba(6, 214, 160, 0.1); color: var(--success);">
-                    <i class="fas fa-money-bill-wave"></i>
-                </div>
-                <div>
-                    <h1>إدارة الرواتب</h1>
-                    <p class="text-muted mb-0">إعداد وتجهيز رواتب منصتي Likee و Saya</p>
-                </div>
-            </div>
-            
-            <div class="platform-selector mb-4">
-                <div class="platform-selector-btn active" id="salary-platform-both">
-                    <i class="fas fa-globe"></i>
-                    <span>كلا المنصتين</span>
-                </div>
-                <div class="platform-selector-btn" id="salary-platform-likee">
-                    <i class="fas fa-video"></i>
-                    <span>Likee</span>
-                </div>
-                <div class="platform-selector-btn" id="salary-platform-saya">
-                    <i class="fas fa-microphone-alt"></i>
-                    <span>Saya</span>
-                </div>
-            </div>
-            
-            <div class="stats-cards mb-5">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: rgba(6, 214, 160, 0.1); color: var(--success);">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-value" id="salary-total-broadcasters">0</div>
-                    <div class="stat-label">إجمالي المذيعين</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: rgba(6, 214, 160, 0.1); color: var(--success);">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <div class="stat-value" id="salary-total-amount">0</div>
-                    <div class="stat-label">إجمالي الرواتب</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: rgba(6, 214, 160, 0.1); color: var(--success);">
-                        <i class="fas fa-truck"></i>
-                    </div>
-                    <div class="stat-value" id="salary-total-shipping">0</div>
-                    <div class="stat-label">إجمالي الشحن</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: rgba(6, 214, 160, 0.1); color: var(--success);">
-                        <i class="fas fa-hand-holding-usd"></i>
-                    </div>
-                    <div class="stat-value" id="salary-net-amount">0</div>
-                    <div class="stat-label">صافي الرواتب</div>
-                </div>
-            </div>
-            
-            <div class="salary-process-card mb-4">
-                <h4 class="mb-4"><i class="fas fa-cogs me-2"></i> عملية معالجة الرواتب</h4>
-                
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h5>جلب بيانات الرواتب</h5>
-                        <p class="text-muted mb-0">استيراد بيانات الرواتب من Google Sheets</p>
-                    </div>
-                    <button class="btn btn-outline-primary ms-auto" onclick="loadSalaryData()">
-                        <i class="fas fa-download me-2"></i> جلب البيانات
-                    </button>
-                </div>
-                
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h5>مراجعة وتعديل البيانات</h5>
-                        <p class="text-muted mb-0">مراجعة الرواتب وإجراء التعديلات اللازمة</p>
-                    </div>
-                    <button class="btn btn-outline-primary ms-auto" onclick="reviewSalaryData()">
-                        <i class="fas fa-edit me-2"></i> مراجعة البيانات
-                    </button>
-                </div>
-                
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h5>حساب الاستقطاعات</h5>
-                        <p class="text-muted mb-0">حساب استقطاعات الشحن والتأمينات</p>
-                    </div>
-                    <button class="btn btn-outline-primary ms-auto" onclick="calculateDeductions()">
-                        <i class="fas fa-calculator me-2"></i> حساب الاستقطاعات
-                    </button>
-                </div>
-                
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h5>إنشاء تقرير الرواتب</h5>
-                        <p class="text-muted mb-0">إنشاء تقرير مفصل للرواتب</p>
-                    </div>
-                    <button class="btn btn-outline-primary ms-auto" onclick="generateSalaryReport()">
-                        <i class="fas fa-file-pdf me-2"></i> إنشاء التقرير
-                    </button>
-                </div>
-                
-                <div class="process-step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h5>تصدير البيانات</h5>
-                        <p class="text-muted mb-0">تصدير بيانات الرواتب إلى Excel أو PDF</p>
-                    </div>
-                    <div class="ms-auto">
-                        <button class="btn btn-outline-success me-2" onclick="exportSalaryToExcel()">
-                            <i class="fas fa-file-excel me-2"></i> Excel
-                        </button>
-                        <button class="btn btn-outline-danger" onclick="exportSalaryToPDF()">
-                            <i class="fas fa-file-pdf me-2"></i> PDF
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card-section salary-summary-card">
-                <div class="card-header">
-                    <div class="section-icon" style="background: rgba(6, 214, 160, 0.1); color: var(--success);">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <span>ملخص الرواتب</span>
-                </div>
-                <div class="card-body">
-                    <div class="filter-section">
-                        <h5><i class="fas fa-filter filter-icon"></i> تصفية البيانات</h5>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label class="form-label">الفترة الزمنية</label>
-                                <select class="form-control" id="salary-period">
-                                    <option value="current">الشهر الحالي</option>
-                                    <option value="last">الشهر الماضي</option>
-                                    <option value="custom">مخصص</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">من تاريخ</label>
-                                <input type="date" class="form-control" id="salary-from-date">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">إلى تاريخ</label>
-                                <input type="date" class="form-control" id="salary-to-date">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="fw-bold">تفاصيل الرواتب</h4>
-                        <button class="btn btn-success" onclick="processSalaries()">
-                            <i class="fas fa-play-circle me-2"></i> بدء معالجة الرواتب
-                        </button>
-                    </div>
-                    
-                    <div id="salary-details-container" class="table-responsive">
-                        <div class="text-center py-5 text-muted">
-                            <i class="fas fa-money-bill-wave fa-3x mb-3"></i>
-                            <p>لا توجد بيانات رواتب لعرضها. يرجى جلب البيانات أولاً.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- لوحة تحكم الإعدادات -->
-    <section id="settings-dashboard" class="content-section">
-        <div class="container py-5">
-            <div class="platform-header mb-4">
-                <div class="platform-header-icon" style="background: rgba(255, 209, 102, 0.1); color: #e69e00;">
-                    <i class="fas fa-cog"></i>
-                </div>
-                <div>
-                    <h1>إعدادات النظام</h1>
-                    <p class="text-muted mb-0">إدارة إعدادات النظام والمنصات والصلاحيات</p>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="settings-section">
-                        <h4 class="section-title"><i class="fas fa-sliders-h me-2"></i> الإعدادات العامة</h4>
-                        
-                        <div class="settings-option">
-                            <div class="d-flex align-items-center">
-                                <div class="settings-icon">
-                                    <i class="fas fa-database"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">إعدادات قاعدة البيانات</h5>
-                                    <p class="text-muted mb-0">إدارة اتصال Google Sheets والمزامنة</p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary w-100" onclick="configureDatabase()">
-                                    <i class="fas fa-cog me-2"></i> تهيئة الإعدادات
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="settings-option">
-                            <div class="d-flex align-items-center">
-                                <div class="settings-icon">
-                                    <i class="fas fa-bell"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">الإشعارات والتنبيهات</h5>
-                                    <p class="text-muted mb-0">إدارة الإشعارات والتنبيهات التلقائية</p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary w-100" onclick="configureNotifications()">
-                                    <i class="fas fa-cog me-2"></i> تهيئة الإعدادات
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="settings-option">
-                            <div class="d-flex align-items-center">
-                                <div class="settings-icon">
-                                    <i class="fas fa-file-export"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">إعدادات التصدير</h5>
-                                    <p class="text-muted mb-0">تهيئة صيغ وتنسيقات التصدير</p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary w-100" onclick="configureExport()">
-                                    <i class="fas fa-cog me-2"></i> تهيئة الإعدادات
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4">
-                    <div class="settings-section">
-                        <h4 class="section-title"><i class="fas fa-user-shield me-2"></i> إدارة المستخدمين</h4>
-                        
-                        <div class="settings-option">
-                            <div class="d-flex align-items-center">
-                                <div class="settings-icon">
-                                    <i class="fas fa-users-cog"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">المستخدمون والصلاحيات</h5>
-                                    <p class="text-muted mb-0">إدارة المستخدمين وتحديد الصلاحيات</p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary w-100" onclick="manageUsers()">
-                                    <i class="fas fa-users me-2"></i> إدارة المستخدمين
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="settings-option">
-                            <div class="d-flex align-items-center">
-                                <div class="settings-icon">
-                                    <i class="fas fa-user-lock"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">أدوار المستخدمين</h5>
-                                    <p class="text-muted mb-0">إنشاء وتعديل أدوار المستخدمين</p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary w-100" onclick="manageRoles()">
-                                    <i class="fas fa-key me-2"></i> إدارة الأدوار
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="settings-option">
-                            <div class="d-flex align-items-center">
-                                <div class="settings-icon">
-                                    <i class="fas fa-history"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">سجل التعديلات</h5>
-                                    <p class="text-muted mb-0">عرض سجل التعديلات على النظام</p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary w-100" onclick="viewAuditLog()">
-                                    <i class="fas fa-list-alt me-2"></i> عرض السجل
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4">
-                    <div class="settings-section">
-                        <h4 class="section-title"><i class="fas fa-tools me-2"></i> أدوات النظام</h4>
-                        
-                        <div class="settings-option">
-                            <div class="d-flex align-items-center">
-                                <div class="settings-icon">
-                                    <i class="fas fa-cloud-download-alt"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">النسخ الاحتياطي</h5>
-                                    <p class="text-muted mb-0">إنشاء واستعادة النسخ الاحتياطية</p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary w-100" onclick="backupData()">
-                                    <i class="fas fa-download me-2"></i> إنشاء نسخة احتياطية
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="settings-option">
-                            <div class="d-flex align-items-center">
-                                <div class="settings-icon">
-                                    <i class="fas fa-broom"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">تنظيف البيانات</h5>
-                                    <p class="text-muted mb-0">حذف البيانات القديمة والمؤقتة</p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary w-100" onclick="cleanupData()">
-                                    <i class="fas fa-trash me-2"></i> تنظيف البيانات
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="settings-option">
-                            <div class="d-flex align-items-center">
-                                <div class="settings-icon">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">معلومات النظام</h5>
-                                    <p class="text-muted mb-0">عرض معلومات حول النظام وإصداره</p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary w-100" onclick="showSystemInfo()">
-                                    <i class="fas fa-info me-2"></i> عرض المعلومات
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card-section mt-4">
-                <div class="card-header">
-                    <div class="section-icon" style="background: rgba(255, 209, 102, 0.1); color: #e69e00;">
-                        <i class="fas fa-plug"></i>
-                    </div>
-                    <span>حالة التكامل</span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="connection-status connected mb-3">
-                                <i class="fas fa-check-circle"></i>
-                                <span>متصل بجوجل شيتس — مصنف ثابت</span>
-                            </div>
-                            <p class="text-muted">تم الربط تلقائيًا بمصنف Google Sheets ثابت. لا حاجة للربط مرة أخرى.</p>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5>إجراءات التكامل</h5>
-                                <button class="btn btn-outline-secondary" onclick="testConnection()">
-                                    <i class="fas fa-bolt me-2"></i> اختبار الاتصال
-                                </button>
-                            </div>
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-outline-primary" onclick="reconnectSheets()">
-                                    <i class="fas fa-sync me-2"></i> إعادة الاتصال
-                                </button>
-                                <button class="btn btn-outline-danger" onclick="disconnectSheets()">
-                                    <i class="fas fa-unlink me-2"></i> قطع الاتصال
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- قسم رفع الملفات -->
-    <div id="upload-section" class="content-section">
+    <div id="upload-section" class="content-section d-none">
         <div class="container py-5">
             <div class="platform-header mb-4">
                 <div class="platform-header-icon" style="background: rgba(67, 97, 238, 0.1); color: var(--primary);">
@@ -1872,7 +1375,6 @@
                     <p class="text-muted mb-0" id="upload-section-description">رفع ملف Excel وتحويله إلى هيكل موحد</p>
                 </div>
             </div>
-            
             <div class="card-section">
                 <div class="card-header">
                     <div class="section-icon">
@@ -1887,7 +1389,6 @@
                         <p class="text-muted">يدعم الملفات بصيغة XLSX أو XLS</p>
                         <input type="file" id="excel-file" accept=".xlsx, .xls" style="display: none;">
                     </div>
-                    
                     <!-- عرض الجدول بعد رفع الملف -->
                     <div id="excel-preview" class="excel-preview d-none">
                         <h4 class="mt-4 mb-3">معاينة البيانات</h4>
@@ -1905,7 +1406,6 @@
             </div>
         </div>
     </div>
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -1919,110 +1419,83 @@
         let currentShippingId = null;
         let currentSheetData = [];
         let officialData = [];
+        let officialDataSaya = [];
         let shippingData = [];
         let broadcasterInfoData = [];
+        let broadcasterInfoDataSaya = [];
+        let salaryData = [];
+        let salaryDataSaya = [];
         let shippingSummary = {};
-        
         // دالة للانتقال إلى لوحة التحكم
         function showDashboard(platform) {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
             document.getElementById('backToPlatformsBtn').classList.add('d-none');
-            
             setTimeout(() => {
                 document.getElementById(platform + '-dashboard').classList.add('active');
                 activeDashboard = platform + '-dashboard';
                 activePlatform = platform;
-                
                 document.getElementById('backToPlatformsBtn').classList.remove('d-none');
-                
-                // تحميل بيانات الإحصائيات
                 loadDashboardStats(platform);
-                // تحميل البيانات الأولية
                 loadInitialData(platform);
             }, 300);
         }
-        
         // دالة للعودة إلى صفحة اختيار المنصة
         function showPlatforms() {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
             document.getElementById('backToPlatformsBtn').classList.add('d-none');
-            
             setTimeout(() => {
                 document.getElementById('platforms-section').classList.add('active');
                 activeDashboard = null;
                 activePlatform = null;
             }, 300);
         }
-        
         // دالة لعرض صفحة إعداد الرواتب
-        function showSalaryDashboard() {
+        function showSalarySettings() {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
             document.getElementById('backToPlatformsBtn').classList.add('d-none');
-            
             setTimeout(() => {
-                document.getElementById('salary-dashboard').classList.add('active');
-                activeDashboard = 'salary-dashboard';
-                activePlatform = 'both';
-                
                 document.getElementById('backToPlatformsBtn').classList.remove('d-none');
             }, 300);
         }
-        
         // دالة لعرض صفحة الإعدادات
         function showSettingsDashboard() {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
             document.getElementById('backToPlatformsBtn').classList.add('d-none');
-            
             setTimeout(() => {
-                document.getElementById('settings-dashboard').classList.add('active');
-                activeDashboard = 'settings-dashboard';
-                activePlatform = 'both';
-                
                 document.getElementById('backToPlatformsBtn').classList.remove('d-none');
             }, 300);
         }
-        
         // دالة لعرض قسم رفع الملفات
         function showUploadSection(sheetName, featureName, platform) {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
             document.getElementById('backToPlatformsBtn').classList.add('d-none');
-            
             setTimeout(() => {
                 document.getElementById('upload-section-title').textContent = featureName +
                     (platform !== 'both' ? ' - ' + (platform === 'likee' ? 'لايكي' : 'سايا') : '');
                 document.getElementById('upload-section-description').textContent =
                     `رفع ملف Excel لـ ${featureName} ${platform !== 'both' ? `لمنصة ${platform === 'likee' ? 'لايكي' : 'سايا'}` : ''}`;
                 document.getElementById('upload-section').classList.add('active');
+                document.getElementById('upload-section').classList.remove('d-none');
                 activePlatform = platform;
                 currentFeature = featureName;
                 currentSheetName = sheetName;
-                
                 document.getElementById('backToPlatformsBtn').classList.remove('d-none');
-                
-                // تفعيل سحب وإفلات الملفات
                 setupUploadSection();
             }, 300);
         }
-        
         // دالة لإعداد قسم رفع الملفات
         function setupUploadSection() {
             const uploadSection = document.getElementById('excel-upload-area');
-            
             ['dragover', 'dragenter'].forEach(eventName => {
                 uploadSection.addEventListener(eventName, e => {
                     e.preventDefault();
@@ -2030,7 +1503,6 @@
                     uploadSection.classList.add('drag-over');
                 });
             });
-            
             ['dragleave', 'dragend', 'drop'].forEach(eventName => {
                 uploadSection.addEventListener(eventName, e => {
                     e.preventDefault();
@@ -2038,7 +1510,6 @@
                     uploadSection.classList.remove('drag-over');
                 });
             });
-            
             uploadSection.addEventListener('drop', e => {
                 const dt = e.dataTransfer;
                 const files = dt.files;
@@ -2046,116 +1517,105 @@
                     handleExcelUpload(files);
                 }
             });
-            
             uploadSection.addEventListener('click', () => {
                 document.getElementById('excel-file').click();
             });
-            
             document.getElementById('excel-file').addEventListener('change', (e) => {
                 handleExcelUpload(e.target.files);
             });
         }
-        
         // دالة للعودة إلى لوحة التحكم
         function goBackToDashboard() {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
             setTimeout(() => {
                 if (activeDashboard) {
                     document.getElementById(activeDashboard).classList.add('active');
                 } else {
                     document.getElementById('platforms-section').classList.add('active');
                 }
-                
                 document.getElementById('backToPlatformsBtn').classList.add('d-none');
             }, 300);
         }
-        
         // دالة لتحميل محتوى التبويب
         function loadTabContent(sheetName, featureName, platform) {
             currentSheetName = sheetName;
             currentFeature = featureName;
             loadSheetData(sheetName);
         }
-        
         // دالة لتحميل بيانات الورقة من Google Sheets
         function loadSheetData(sheetName) {
             showLoading();
-            
-            // محاكاة جلب البيانات من Google Sheets
-            setTimeout(() => {
-                hideLoading();
-                
-                // بيانات وهمية للعرض
-                const mockData = {
-                    success: true,
-                    headers: ["الاسم", "الإيدي", "الراتب", "الشحن", "الراتب الصافي", "الحالة"],
-                    rows: [
-                        ["أحمد محمد", "L123", "1500", "200", "1300", "نشط"],
-                        ["محمد علي", "L124", "2000", "150", "1850", "نشط"],
-                        ["سارة عبد الله", "L125", "1800", "300", "1500", "غير نشط"],
-                        ["فاطمة إبراهيم", "L126", "2200", "100", "2100", "نشط"]
-                    ]
-                };
-                
-                displaySheetData(mockData, sheetName);
-                
-                // تحديث البيانات الرسمية إذا كانت الورقة "لايكي - داتا"
-                if (sheetName === 'لايكي - داتا' && mockData.success) {
-                    officialData = mockData.rows;
-                    updateStats(mockData.rows);
-                    populateSalaryTransferDropdown();
-                    updateShippingBroadcasterSearch();
-                }
-                
-                // تحديث بيانات الشحن إذا كانت الورقة "الشحن"
-                if (sheetName === 'الشحن' && mockData.success) {
-                    shippingData = mockData.rows;
-                    calculateShippingSummary();
-                    displayShippingSummary();
-                }
-                
-                // تحديث بيانات معلومات المذيعين إذا كانت الورقة "معلومات المذيعين - لايكي"
-                if (sheetName === 'معلومات المذيعين - لايكي' && mockData.success) {
-                    broadcasterInfoData = mockData.rows;
-                    updateBroadcasterTableWithShipping();
-                }
-            }, 1000);
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    displaySheetData(result, sheetName);
+                    if (sheetName === 'لايكي - داتا' && result.success) {
+                        officialData = result.rows;
+                        updateStats(result.rows, 'likee');
+                        populateSalaryTransferDropdown();
+                        updateShippingBroadcasterSearch();
+                    }
+                    if (sheetName === 'سايا - داتا' && result.success) {
+                        officialDataSaya = result.rows;
+                        updateStats(result.rows, 'saya');
+                        populateSalaryTransferDropdownSaya();
+                        updateShippingBroadcasterSearchSaya();
+                    }
+                    if (sheetName === 'الشحن' && result.success) {
+                        shippingData = result.rows;
+                        calculateShippingSummary();
+                        displayShippingSummary();
+                        displayShippingSummarySaya();
+                    }
+                    if (sheetName === 'معلومات المذيعين - لايكي' && result.success) {
+                        broadcasterInfoData = result.rows;
+                        updateBroadcasterTableWithShipping('likee');
+                    }
+                    if (sheetName === 'معلومات المذيعين - سايا' && result.success) {
+                        broadcasterInfoDataSaya = result.rows;
+                        updateBroadcasterTableWithShipping('saya');
+                    }
+                    if (sheetName === 'داتا راتب - لايكي' && result.success) {
+                        salaryData = result.rows;
+                    }
+                    if (sheetName === 'داتا راتب - سايا' && result.success) {
+                        salaryDataSaya = result.rows;
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error loading sheet ', sheetName, error);
+                    alert('حدث خطأ في تحميل البيانات: ' + error.message);
+                })
+                .readSheetData(sheetName);
         }
-        
         // دالة لتحديث الإحصائيات
-        function updateStats(rows) {
+        function updateStats(rows, platform) {
             const totalBroadcasters = rows.length;
             let activeBroadcasters = 0;
             let totalSalary = 0;
             let totalShipping = 0;
-            
             rows.forEach(row => {
-                if (row[5] === "نشط") activeBroadcasters++;
+                if (parseFloat(row[2]) > 0) activeBroadcasters++;
                 totalSalary += parseFloat(row[2]) || 0;
                 totalShipping += parseFloat(row[3]) || 0;
             });
-            
-            if (activePlatform === 'likee') {
+            if (platform === 'likee') {
                 document.getElementById('likee-total-broadcasters').textContent = totalBroadcasters;
                 document.getElementById('likee-active-broadcasters').textContent = activeBroadcasters;
                 document.getElementById('likee-total-salary').textContent = totalSalary.toLocaleString();
                 document.getElementById('likee-total-shipping').textContent = totalShipping.toLocaleString();
-            } else if (activePlatform === 'saya') {
-                document.getElementById('saya-total-broadcasters').textContent = totalBroadcasters;
-                document.getElementById('saya-active-broadcasters').textContent = activeBroadcasters;
-                document.getElementById('saya-total-salary').textContent = totalSalary.toLocaleString();
-                document.getElementById('saya-total-shipping').textContent = totalShipping.toLocaleString();
+            } else if (platform === 'saya') {
+                // يمكنك إضافة عناصر HTML لعرض إحصائيات Saya إذا لزم الأمر
             }
         }
-        
         // دالة لحساب ملخص الشحنات لكل مذيع
         function calculateShippingSummary() {
             shippingSummary = {};
             shippingData.forEach(row => {
-                const broadcasterId = row[1];
+                const broadcasterId = row[2];
                 const amount = parseFloat(row[3]) || 0;
                 if (!shippingSummary[broadcasterId]) {
                     shippingSummary[broadcasterId] = 0;
@@ -2163,45 +1623,38 @@
                 shippingSummary[broadcasterId] += amount;
             });
         }
-        
-        // دالة لعرض ملخص الشحنات
+        // دالة لعرض ملخص الشحنات لمنصة Likee
         function displayShippingSummary() {
             const container = document.getElementById('shipping-data-container');
             if (!container) return;
-            
             let html = '<table class="data-table table table-hover">';
             html += '<thead class="table-light"><tr>';
             html += '<th>المنصة</th><th>الاسم</th><th>الإيدي</th><th>إجمالي الشحن</th><th>تاريخ الشحن</th><th>الإجراءات</th>';
             html += '</tr></thead><tbody>';
-            
-            // تحويل مصفوفة الشحنات إلى كائن لتجميعها
             const shippingMap = {};
             shippingData.forEach(row => {
-                const id = row[1];
-                const amount = parseFloat(row[3]) || 0;
-                const date = row[4] || '';
-                
-                if (!shippingMap[id]) {
-                    shippingMap[id] = {
-                        platform: row[0] || 'لايكي',
-                        name: row[1] || 'غير معروف',
-                        id: id,
-                        totalAmount: 0,
-                        dates: []
-                    };
-                }
-                
-                shippingMap[id].totalAmount += amount;
-                if (date) {
-                    shippingMap[id].dates.push(date);
+                if (row[0] === 'لايكي') { // عرض الشحنات الخاصة بمنصة Likee فقط
+                    const id = row[2];
+                    const amount = parseFloat(row[3]) || 0;
+                    const date = row[4] || '';
+                    if (!shippingMap[id]) {
+                        shippingMap[id] = {
+                            platform: row[0] || 'لايكي',
+                            name: row[1] || 'غير معروف',
+                            id: id,
+                            totalAmount: 0,
+                            dates: []
+                        };
+                    }
+                    shippingMap[id].totalAmount += amount;
+                    if (date) {
+                        shippingMap[id].dates.push(date);
+                    }
                 }
             });
-            
-            // عرض البيانات المجمعة
             for (const id in shippingMap) {
                 const item = shippingMap[id];
                 const latestDate = item.dates.length > 0 ? item.dates[item.dates.length - 1] : '';
-                
                 html += `<tr>`;
                 html += `<td>${item.platform}</td>`;
                 html += `<td>${item.name}</td>`;
@@ -2209,22 +1662,263 @@
                 html += `<td>${item.totalAmount.toFixed(2)}</td>`;
                 html += `<td>${latestDate}</td>`;
                 html += `<td>
-                    <button class="btn btn-sm btn-outline-primary" onclick="editShippingSummary('${id}')">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editShippingSummary('${id}', 'likee')">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteShippingSummary('${id}')">
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteShippingSummary('${id}', 'likee')">
                         <i class="fas fa-trash"></i>
                     </button>
                 </td>`;
                 html += `</tr>`;
             }
-            
             html += '</tbody></table>';
             html += `<p class="text-muted mt-3">عدد السجلات: ${Object.keys(shippingMap).length}</p>`;
-            
             container.innerHTML = html;
         }
-        
+        // دالة لعرض ملخص الشحنات لمنصة Saya
+        function displayShippingSummarySaya() {
+            const container = document.getElementById('shipping-data-container-saya');
+            if (!container) return;
+            let html = '<table class="data-table table table-hover">';
+            html += '<thead class="table-light"><tr>';
+            html += '<th>المنصة</th><th>الاسم</th><th>الإيدي</th><th>إجمالي الشحن</th><th>تاريخ الشحن</th><th>الإجراءات</th>';
+            html += '</tr></thead><tbody>';
+            const shippingMap = {};
+            shippingData.forEach(row => {
+                if (row[0] === 'سايا') { // عرض الشحنات الخاصة بمنصة Saya فقط
+                    const id = row[2];
+                    const amount = parseFloat(row[3]) || 0;
+                    const date = row[4] || '';
+                    if (!shippingMap[id]) {
+                        shippingMap[id] = {
+                            platform: row[0] || 'سايا',
+                            name: row[1] || 'غير معروف',
+                            id: id,
+                            totalAmount: 0,
+                            dates: []
+                        };
+                    }
+                    shippingMap[id].totalAmount += amount;
+                    if (date) {
+                        shippingMap[id].dates.push(date);
+                    }
+                }
+            });
+            for (const id in shippingMap) {
+                const item = shippingMap[id];
+                const latestDate = item.dates.length > 0 ? item.dates[item.dates.length - 1] : '';
+                html += `<tr>`;
+                html += `<td>${item.platform}</td>`;
+                html += `<td>${item.name}</td>`;
+                html += `<td>${item.id}</td>`;
+                html += `<td>${item.totalAmount.toFixed(2)}</td>`;
+                html += `<td>${latestDate}</td>`;
+                html += `<td>
+                    <button class="btn btn-sm btn-outline-primary" onclick="editShippingSummary('${id}', 'saya')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteShippingSummary('${id}', 'saya')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>`;
+                html += `</tr>`;
+            }
+            html += '</tbody></table>';
+            html += `<p class="text-muted mt-3">عدد السجلات: ${Object.keys(shippingMap).length}</p>`;
+            container.innerHTML = html;
+        }
+        // دالة لعرض سجل الشحن (تم إصلاحها)
+        function showShippingLog() {
+            // إنشاء قسم سجل الشحن إذا لم يكن موجودًا
+            let shippingLogSection = document.getElementById('shipping-log-section');
+            if (!shippingLogSection) {
+                shippingLogSection = document.createElement('div');
+                shippingLogSection.id = 'shipping-log-section';
+                shippingLogSection.className = 'shipping-log-section';
+                shippingLogSection.innerHTML = `
+                    <div class="shipping-log-header">
+                        <h3 class="shipping-log-title"><i class="fas fa-list me-2"></i> سجل الشحن الكامل</h3>
+                        <button class="close-log-btn" onclick="closeShippingLog()">
+                            <i class="fas fa-times me-1"></i> إغلاق
+                        </button>
+                    </div>
+                    <div id="shipping-log-data-container" class="table-responsive">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-3">جاري تحميل سجل الشحن...</p>
+                        </div>
+                    </div>
+                `;
+                document.querySelector('#shipping-tab-pane .card-body').appendChild(shippingLogSection);
+            }
+            // عرض قسم سجل الشحن
+            shippingLogSection.style.display = 'block';
+            // تحميل بيانات الشحن من جوجل شيت
+            showLoading();
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    if (result.success && result.rows && result.rows.length > 0) {
+                        displayShippingLog(result.rows, result.headers);
+                    } else {
+                        document.getElementById('shipping-log-data-container').innerHTML = `
+                            <div class="text-center py-5 text-muted">
+                                <i class="fas fa-shipping-fast fa-3x mb-3"></i>
+                                <p>لا توجد بيانات شحن لعرضها. يرجى رفع ملف Excel أو الاتصال بجوجل شيتس.</p>
+                            </div>
+                        `;
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error loading shipping log:', error);
+                    alert('حدث خطأ في تحميل سجل الشحن: ' + error.message);
+                    document.getElementById('shipping-log-data-container').innerHTML = `
+                        <div class="alert alert-danger text-center">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            حدث خطأ في تحميل سجل الشحن: ${error.message}
+                        </div>
+                    `;
+                })
+                .readSheetData('الشحن');
+        }
+        // دالة لعرض سجل الشحن لمنصة Saya
+        function showShippingLogSaya() {
+            // إنشاء قسم سجل الشحن إذا لم يكن موجودًا
+            let shippingLogSection = document.getElementById('shipping-log-section-saya');
+            if (!shippingLogSection) {
+                shippingLogSection = document.createElement('div');
+                shippingLogSection.id = 'shipping-log-section-saya';
+                shippingLogSection.className = 'shipping-log-section';
+                shippingLogSection.innerHTML = `
+                    <div class="shipping-log-header">
+                        <h3 class="shipping-log-title"><i class="fas fa-list me-2"></i> سجل الشحن الكامل</h3>
+                        <button class="close-log-btn" onclick="closeShippingLogSaya()">
+                            <i class="fas fa-times me-1"></i> إغلاق
+                        </button>
+                    </div>
+                    <div id="shipping-log-data-container-saya" class="table-responsive">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-3">جاري تحميل سجل الشحن...</p>
+                        </div>
+                    </div>
+                `;
+                document.querySelector('#shipping-tab-pane-saya .card-body').appendChild(shippingLogSection);
+            }
+            // عرض قسم سجل الشحن
+            shippingLogSection.style.display = 'block';
+            // تحميل بيانات الشحن من جوجل شيت
+            showLoading();
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    if (result.success && result.rows && result.rows.length > 0) {
+                        displayShippingLogSaya(result.rows, result.headers);
+                    } else {
+                        document.getElementById('shipping-log-data-container-saya').innerHTML = `
+                            <div class="text-center py-5 text-muted">
+                                <i class="fas fa-shipping-fast fa-3x mb-3"></i>
+                                <p>لا توجد بيانات شحن لعرضها. يرجى رفع ملف Excel أو الاتصال بجوجل شيتس.</p>
+                            </div>
+                        `;
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error loading shipping log:', error);
+                    alert('حدث خطأ في تحميل سجل الشحن: ' + error.message);
+                    document.getElementById('shipping-log-data-container-saya').innerHTML = `
+                        <div class="alert alert-danger text-center">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            حدث خطأ في تحميل سجل الشحن: ${error.message}
+                        </div>
+                    `;
+                })
+                .readSheetData('الشحن');
+        }
+        // دالة لعرض سجل الشحن
+        function displayShippingLog(rows, headers) {
+            const container = document.getElementById('shipping-log-data-container');
+            let html = '<table class="data-table table table-hover">';
+            html += '<thead class="table-light"><tr>';
+            // عرض رؤوس الأعمدة
+            headers.forEach(header => {
+                html += `<th>${header}</th>`;
+            });
+            html += '<th>الإجراءات</th>';
+            html += '</tr></thead><tbody>';
+            // عرض بيانات الشحن
+            rows.forEach((row, index) => {
+                const rowIndex = index + 2;
+                html += `<tr>`;
+                row.forEach(cell => {
+                    html += `<td>${cell || ''}</td>`;
+                });
+                html += `<td>
+                    <button class="btn btn-sm btn-outline-primary" onclick="editShipping(${rowIndex})">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteShipping(${rowIndex})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>`;
+                html += `</tr>`;
+            });
+            html += '</tbody></table>';
+            html += `<p class="text-muted mt-3">عدد سجلات الشحن: ${rows.length}</p>`;
+            container.innerHTML = html;
+        }
+        // دالة لعرض سجل الشحن لمنصة Saya
+        function displayShippingLogSaya(rows, headers) {
+            const container = document.getElementById('shipping-log-data-container-saya');
+            let html = '<table class="data-table table table-hover">';
+            html += '<thead class="table-light"><tr>';
+            // عرض رؤوس الأعمدة
+            headers.forEach(header => {
+                html += `<th>${header}</th>`;
+            });
+            html += '<th>الإجراءات</th>';
+            html += '</tr></thead><tbody>';
+            // عرض بيانات الشحن
+            rows.forEach((row, index) => {
+                const rowIndex = index + 2;
+                html += `<tr>`;
+                row.forEach(cell => {
+                    html += `<td>${cell || ''}</td>`;
+                });
+                html += `<td>
+                    <button class="btn btn-sm btn-outline-primary" onclick="editShippingSaya(${rowIndex})">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteShippingSaya(${rowIndex})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>`;
+                html += `</tr>`;
+            });
+            html += '</tbody></table>';
+            html += `<p class="text-muted mt-3">عدد سجلات الشحن: ${rows.length}</p>`;
+            container.innerHTML = html;
+        }
+        // دالة لإغلاق سجل الشحن
+        function closeShippingLog() {
+            const shippingLogSection = document.getElementById('shipping-log-section');
+            if (shippingLogSection) {
+                shippingLogSection.style.display = 'none';
+            }
+        }
+        // دالة لإغلاق سجل الشحن لمنصة Saya
+        function closeShippingLogSaya() {
+            const shippingLogSection = document.getElementById('shipping-log-section-saya');
+            if (shippingLogSection) {
+                shippingLogSection.style.display = 'none';
+            }
+        }
         // دالة لحساب الراتب الصافي
         function calculateNetSalary() {
             const basicSalary = parseFloat(document.getElementById('broadcaster-salary').value) || 0;
@@ -2232,45 +1926,52 @@
             const netSalary = basicSalary - shippingAmount;
             document.getElementById('broadcaster-net-salary').value = netSalary.toFixed(2);
         }
-        
+        // دالة لحساب الراتب الصافي لمنصة Saya
+        function calculateNetSalarySaya() {
+            const basicSalary = parseFloat(document.getElementById('broadcaster-salary-saya').value) || 0;
+            const shippingAmount = parseFloat(document.getElementById('broadcaster-shipping-amount-saya').value) || 0;
+            const netSalary = basicSalary - shippingAmount;
+            document.getElementById('broadcaster-net-salary-saya').value = netSalary.toFixed(2);
+        }
         // دالة لملء قائمة تحويل الراتب
         function populateSalaryTransferDropdown() {
             const dropdown = document.getElementById('broadcaster-salary-transfer');
             if (!dropdown) return;
-            
-            // مسح الخيارات الحالية
             dropdown.innerHTML = '<option value="">اختر...</option>';
-            
-            // إضافة المذيعين من البيانات الرسمية
             officialData.forEach(row => {
                 const option = document.createElement('option');
                 option.value = row[1];
-                option.textContent = row[0];
+                option.textContent = `${row[0]} (${row[1]})`;
                 dropdown.appendChild(option);
             });
         }
-        
+        // دالة لملء قائمة تحويل الراتب لمنصة Saya
+        function populateSalaryTransferDropdownSaya() {
+            const dropdown = document.getElementById('broadcaster-salary-transfer-saya');
+            if (!dropdown) return;
+            dropdown.innerHTML = '<option value="">اختر...</option>';
+            officialDataSaya.forEach(row => {
+                const option = document.createElement('option');
+                option.value = row[1];
+                option.textContent = `${row[0]} (${row[1]})`;
+                dropdown.appendChild(option);
+            });
+        }
         // دالة لتحديث قائمة البحث في نموذج الشحن
         function updateShippingBroadcasterSearch() {
             const searchInput = document.getElementById('shipping-broadcaster-search');
             if (!searchInput) return;
-            
-            // إزالة مستمعات الأحداث القديمة لتجنب التكرار
             const newSearchInput = searchInput.cloneNode(true);
             searchInput.parentNode.replaceChild(newSearchInput, searchInput);
-            
-            // إضافة مستمع للحدث input
             newSearchInput.addEventListener('input', function () {
                 const searchValue = this.value.trim();
                 const suggestionsContainer = document.getElementById('shipping-broadcaster-suggestions');
                 if (searchValue.length >= 1) {
-                    showShippingBroadcasterSuggestions(searchValue, suggestionsContainer);
+                    showShippingBroadcasterSuggestions(searchValue, suggestionsContainer, 'likee');
                 } else {
                     suggestionsContainer.style.display = 'none';
                 }
             });
-            
-            // إخفاء الاقتراحات عند فقدان التركيز
             newSearchInput.addEventListener('blur', function () {
                 setTimeout(() => {
                     const suggestionsContainer = document.getElementById('shipping-broadcaster-suggestions');
@@ -2280,79 +1981,117 @@
                 }, 200);
             });
         }
-        
-        // دالة لعرض اقتراحات المذيعين في نموذج الشحن
-        function showShippingBroadcasterSuggestions(searchValue, suggestionsContainer) {
-            if (!suggestionsContainer || !officialData || officialData.length === 0) {
-                if (suggestionsContainer) suggestionsContainer.style.display = 'none';
-                return;
-            }
-            
-            let suggestions = [];
-            officialData.forEach(row => {
-                const name = row[0] || '';
-                const id = row[1] || '';
-                
-                if (name.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    id.toLowerCase().includes(searchValue.toLowerCase())) {
-                    suggestions.push({ name: name, id: id });
+        // دالة لتحديث قائمة البحث في نموذج الشحن لمنصة Saya
+        function updateShippingBroadcasterSearchSaya() {
+            const searchInput = document.getElementById('shipping-broadcaster-search-saya');
+            if (!searchInput) return;
+            const newSearchInput = searchInput.cloneNode(true);
+            searchInput.parentNode.replaceChild(newSearchInput, searchInput);
+            newSearchInput.addEventListener('input', function () {
+                const searchValue = this.value.trim();
+                const suggestionsContainer = document.getElementById('shipping-broadcaster-suggestions-saya');
+                if (searchValue.length >= 1) {
+                    showShippingBroadcasterSuggestions(searchValue, suggestionsContainer, 'saya');
+                } else {
+                    suggestionsContainer.style.display = 'none';
                 }
             });
-            
+            newSearchInput.addEventListener('blur', function () {
+                setTimeout(() => {
+                    const suggestionsContainer = document.getElementById('shipping-broadcaster-suggestions-saya');
+                    if (suggestionsContainer) {
+                        suggestionsContainer.style.display = 'none';
+                    }
+                }, 200);
+            });
+        }
+        // دالة لعرض اقتراحات المذيعين في نموذج الشحن
+        function showShippingBroadcasterSuggestions(searchValue, suggestionsContainer, platform) {
+            if (!suggestionsContainer) {
+                return;
+            }
+            let suggestions = [];
+            let dataArray = [];
+            if (platform === 'likee') {
+                dataArray = officialData;
+            } else if (platform === 'saya') {
+                dataArray = officialDataSaya;
+            }
+            if (dataArray && dataArray.length > 0) {
+                dataArray.forEach(row => {
+                    const name = row[0] || '';
+                    const id = row[1] || '';
+                    if (name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                        id.toLowerCase().includes(searchValue.toLowerCase())) {
+                        suggestions.push({ name: name, id: id });
+                    }
+                });
+            }
             if (suggestions.length > 0) {
                 let html = '';
                 suggestions.forEach(suggestion => {
-                    html += `<div class="search-suggestion-item" onclick="selectShippingBroadcaster('${suggestion.name.replace(/'/g, "\\'")}', '${suggestion.id.replace(/'/g, "\\'")}')">${suggestion.name} (${suggestion.id})</div>`;
+                    html += `<div class="search-suggestion-item" onclick="selectShippingBroadcaster('${suggestion.name.replace(/'/g, "\\'")}', '${suggestion.id.replace(/'/g, "\\'")}', '${platform}')">${suggestion.name} (${suggestion.id})</div>`;
                 });
-                
                 suggestionsContainer.innerHTML = html;
                 suggestionsContainer.style.display = 'block';
             } else {
                 suggestionsContainer.style.display = 'none';
             }
         }
-        
         // دالة لاختيار المذيع من الاقتراحات في نموذج الشحن
-        function selectShippingBroadcaster(name, id) {
-            document.getElementById('shipping-broadcaster-search').value = name;
-            document.getElementById('shipping-broadcaster-id').value = id;
-            document.getElementById('shipping-broadcaster-suggestions').style.display = 'none';
-            
-            // تعيين تاريخ اليوم تلقائياً
+        function selectShippingBroadcaster(name, id, platform) {
+            if (platform === 'likee') {
+                document.getElementById('shipping-broadcaster-search').value = name;
+                document.getElementById('shipping-broadcaster-id').value = id;
+                document.getElementById('shipping-broadcaster-suggestions').style.display = 'none';
+            } else if (platform === 'saya') {
+                document.getElementById('shipping-broadcaster-search-saya').value = name;
+                document.getElementById('shipping-broadcaster-id-saya').value = id;
+                document.getElementById('shipping-broadcaster-suggestions-saya').style.display = 'none';
+            }
             const today = new Date().toISOString().split('T')[0];
-            document.getElementById('shipping-date').value = today;
+            if (platform === 'likee') {
+                document.getElementById('shipping-date').value = today;
+            } else if (platform === 'saya') {
+                document.getElementById('shipping-date-saya').value = today;
+            }
         }
-        
         // دالة لتحديث جدول المذيعين مع ملخص الشحنات
-        function updateBroadcasterTableWithShipping() {
-            const container = document.getElementById('broadcaster-data-container');
-            if (!container || !broadcasterInfoData.length) return;
-            
+        function updateBroadcasterTableWithShipping(platform) {
+            let containerId, broadcasterDataArray, officialDataArray, shippingSummaryLocal;
+            if (platform === 'likee') {
+                containerId = 'broadcaster-data-container';
+                broadcasterDataArray = broadcasterInfoData;
+                officialDataArray = officialData;
+                shippingSummaryLocal = shippingSummary;
+            } else if (platform === 'saya') {
+                containerId = 'broadcaster-data-container-saya';
+                broadcasterDataArray = broadcasterInfoDataSaya;
+                officialDataArray = officialDataSaya;
+                shippingSummaryLocal = shippingSummary;
+            } else {
+                return;
+            }
+            const container = document.getElementById(containerId);
+            if (!container || !broadcasterDataArray.length) return;
             let html = '<table class="data-table table table-hover">';
             html += '<thead class="table-light"><tr>';
             html += `<th>الاسم</th><th>الإيدي</th><th>الاسم الثلاثي</th><th>المدينة</th><th>المكتب</th><th>رقم الهاتف</th><th>الراتب الأساسي</th><th>الشحن</th><th>الراتب الصافي</th><th>تحويل الراتب إلى</th><th>ملاحظات</th><th>الإجراءات</th>`;
             html += '</tr></thead><tbody>';
-            
-            broadcasterInfoData.forEach((row, index) => {
+            broadcasterDataArray.forEach((row, index) => {
                 const rowIndex = index + 2;
-                const rowId = `معلومات-المذيعين--لايكي-row-${rowIndex}`.replace(/[^a-zA-Z0-9\-]/g, '');
+                const rowId = `معلومات-المذيعين--${platform === 'likee' ? 'لايكي' : 'سايا'}-row-${rowIndex}`.replace(/[^a-zA-Z0-9\-]/g, '');
                 const broadcasterId = row[1];
-                const totalShipping = shippingSummary[broadcasterId] || 0;
-                
-                // حساب الراتب الصافي
+                const totalShipping = shippingSummaryLocal[broadcasterId] || 0;
                 const basicSalary = parseFloat(row[6]) || 0;
                 const netSalary = basicSalary - totalShipping;
-                
-                // الحصول على اسم المذيع من البيانات الرسمية بدلاً من الإيدي
                 let transferToName = '';
                 if (row[9]) {
                     const transferId = row[9];
-                    const broadcaster = officialData.find(b => b[1] === transferId);
+                    const broadcaster = officialDataArray.find(b => b[1] === transferId);
                     transferToName = broadcaster ? broadcaster[0] : transferId;
                 }
-                
-                // إضافة مستمع النقر للصف بأكمله
-                html += `<tr id="${rowId}" onclick="handleRowClick(event, ${rowIndex})" style="cursor: pointer;">`;
+                html += `<tr id="${rowId}" onclick="handleRowClick(event, ${rowIndex}, '${platform}')" style="cursor: pointer;">`;
                 html += `<td>${row[0] || ''}</td>`;
                 html += `<td>${row[1] || ''}</td>`;
                 html += `<td>${row[2] || ''}</td>`;
@@ -2365,50 +2104,47 @@
                 html += `<td class="transfer-to-cell">${transferToName}</td>`;
                 html += `<td>${row[10] || ''}</td>`;
                 html += `<td>
-                    <button class="btn btn-sm btn-outline-primary" onclick="editBroadcasterFromButton(event, ${rowIndex})">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editBroadcasterFromButton(event, ${rowIndex}, '${platform}')">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteBroadcaster(${rowIndex})">
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteBroadcaster(${rowIndex}, '${platform === 'likee' ? 'معلومات المذيعين - لايكي' : 'معلومات المذيعين - سايا'}')">
                         <i class="fas fa-trash"></i>
                     </button>
                 </td>`;
                 html += '</tr>';
             });
-            
             html += '</tbody></table>';
-            html += `<p class="text-muted mt-3">عدد السجلات: ${broadcasterInfoData.length}</p>`;
-            
+            html += `<p class="text-muted mt-3">عدد السجلات: ${broadcasterDataArray.length}</p>`;
             container.innerHTML = html;
         }
-        
         // دالة للتعامل مع النقر على الصف
-        function handleRowClick(event, rowIndex) {
+        function handleRowClick(event, rowIndex, platform) {
             if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'I') {
-                editBroadcaster(rowIndex);
+                if (platform === 'likee') {
+                    editBroadcaster(rowIndex);
+                } else if (platform === 'saya') {
+                    editBroadcasterSaya(rowIndex);
+                }
             }
         }
-        
-        // دالة لتعديل المذيع من زر التحرير (لمنع تفعيل النقر على الصف)
-        function editBroadcasterFromButton(event, rowIndex) {
+        // دالة لتعديل المذيع من زر التحرير
+        function editBroadcasterFromButton(event, rowIndex, platform) {
             event.stopPropagation();
-            editBroadcaster(rowIndex);
+            if (platform === 'likee') {
+                editBroadcaster(rowIndex);
+            } else if (platform === 'saya') {
+                editBroadcasterSaya(rowIndex);
+            }
         }
-        
-        // دالة لتعديل المذيع
+        // دالة لتعديل المذيع لمنصة Likee
         function editBroadcaster(rowIndex) {
             if (!broadcasterInfoData || broadcasterInfoData.length < (rowIndex - 1)) {
                 console.error('لا توجد بيانات للمذيع المحدد');
                 alert('لا توجد بيانات للمذيع المحدد');
                 return;
             }
-            
             const broadcaster = broadcasterInfoData[rowIndex - 2];
-            if (!broadcaster) {
-                console.error('لا توجد بيانات للمذيع المحدد');
-                alert('لا توجد بيانات للمذيع المحدد');
-                return;
-            }
-            
+            if (!broadcaster) return;
             document.getElementById('broadcaster-search').value = broadcaster[0] || '';
             document.getElementById('broadcaster-id').value = broadcaster[1] || '';
             document.getElementById('broadcaster-fullname').value = broadcaster[2] || '';
@@ -2416,116 +2152,127 @@
             document.getElementById('broadcaster-office').value = broadcaster[4] || '';
             document.getElementById('broadcaster-phone').value = broadcaster[5] || '';
             document.getElementById('broadcaster-salary').value = broadcaster[6] || '';
-            
-            // عرض مجموع الشحنات للمذيع
             const broadcasterId = broadcaster[1];
             const totalShipping = shippingSummary[broadcasterId] || 0;
             document.getElementById('broadcaster-shipping-amount').value = totalShipping.toFixed(2);
-            
-            // حساب الراتب الصافي
             calculateNetSalary();
             document.getElementById('broadcaster-net-salary').value = (parseFloat(broadcaster[6] || 0) - totalShipping).toFixed(2);
-            
             document.getElementById('broadcaster-salary-transfer').value = broadcaster[9] || '';
             document.getElementById('broadcaster-notes').value = broadcaster[10] || '';
-            
             currentBroadcasterId = rowIndex;
-            
-            // إزالة التحديد من الصفوف الأخرى
             const rows = document.querySelectorAll('#broadcaster-data-container tbody tr');
             rows.forEach(row => row.classList.remove('selected-row'));
-            
-            // تحديد الصف الحالي
             const rowId = `معلومات-المذيعين--لايكي-row-${rowIndex}`.replace(/[^a-zA-Z0-9\-]/g, '');
             const currentRow = document.getElementById(rowId);
             if (currentRow) {
                 currentRow.classList.add('selected-row');
             }
         }
-        
+        // دالة لتعديل المذيع لمنصة Saya
+        function editBroadcasterSaya(rowIndex) {
+            if (!broadcasterInfoDataSaya || broadcasterInfoDataSaya.length < (rowIndex - 1)) {
+                console.error('لا توجد بيانات للمذيع المحدد');
+                alert('لا توجد بيانات للمذيع المحدد');
+                return;
+            }
+            const broadcaster = broadcasterInfoDataSaya[rowIndex - 2];
+            if (!broadcaster) return;
+            document.getElementById('broadcaster-search-saya').value = broadcaster[0] || '';
+            document.getElementById('broadcaster-id-saya').value = broadcaster[1] || '';
+            document.getElementById('broadcaster-fullname-saya').value = broadcaster[2] || '';
+            document.getElementById('broadcaster-city-saya').value = broadcaster[3] || '';
+            document.getElementById('broadcaster-office-saya').value = broadcaster[4] || '';
+            document.getElementById('broadcaster-phone-saya').value = broadcaster[5] || '';
+            document.getElementById('broadcaster-salary-saya').value = broadcaster[6] || '';
+            const broadcasterId = broadcaster[1];
+            const totalShipping = shippingSummary[broadcasterId] || 0;
+            document.getElementById('broadcaster-shipping-amount-saya').value = totalShipping.toFixed(2);
+            calculateNetSalarySaya();
+            document.getElementById('broadcaster-net-salary-saya').value = (parseFloat(broadcaster[6] || 0) - totalShipping).toFixed(2);
+            document.getElementById('broadcaster-salary-transfer-saya').value = broadcaster[9] || '';
+            document.getElementById('broadcaster-notes-saya').value = broadcaster[10] || '';
+            currentBroadcasterId = rowIndex;
+            const rows = document.querySelectorAll('#broadcaster-data-container-saya tbody tr');
+            rows.forEach(row => row.classList.remove('selected-row'));
+            const rowId = `معلومات-المذيعين--سايا-row-${rowIndex}`.replace(/[^a-zA-Z0-9\-]/g, '');
+            const currentRow = document.getElementById(rowId);
+            if (currentRow) {
+                currentRow.classList.add('selected-row');
+            }
+        }
         // دالة لعرض البيانات في الجدول
         function displaySheetData(result, sheetName) {
             let containerId;
-            
             if (sheetName === 'لايكي - داتا') {
                 containerId = 'likee-sheet-data-container';
+            } else if (sheetName === 'سايا - داتا') {
+                containerId = 'saya-sheet-data-container';
             } else if (sheetName === 'معلومات المذيعين - لايكي') {
                 containerId = 'broadcaster-data-container';
                 if (result.success) {
                     broadcasterInfoData = result.rows;
-                    updateBroadcasterTableWithShipping();
+                    updateBroadcasterTableWithShipping('likee');
+                    return;
+                }
+            } else if (sheetName === 'معلومات المذيعين - سايا') {
+                containerId = 'broadcaster-data-container-saya';
+                if (result.success) {
+                    broadcasterInfoDataSaya = result.rows;
+                    updateBroadcasterTableWithShipping('saya');
                     return;
                 }
             } else if (sheetName === 'الشحن') {
-                containerId = 'shipping-data-container';
+                containerId = 'shipping-data-container'; // سيتم التعامل معه بشكل منفصل
                 if (result.success) {
                     shippingData = result.rows;
                     calculateShippingSummary();
                     displayShippingSummary();
+                    displayShippingSummarySaya();
                     return;
                 }
             } else if (sheetName === 'داتا راتب - لايكي') {
                 containerId = 'salary-data-container';
-            } else if (sheetName === 'سايا - داتا') {
-                containerId = 'saya-sheet-data-container';
-            } else if (sheetName === 'معلومات المذيعين - سايا') {
-                containerId = 'saya-broadcaster-data-container';
-            } else if (sheetName === 'الشحن - سايا') {
-                containerId = 'saya-shipping-data-container';
             } else if (sheetName === 'داتا راتب - سايا') {
-                containerId = 'saya-salary-data-container';
+                containerId = 'salary-data-container-saya';
             } else {
                 console.error('Container ID not found for sheet:', sheetName);
                 return;
             }
-            
             const container = document.getElementById(containerId);
             let html = '';
-            
             if (result.success && result.rows && result.rows.length > 0) {
                 currentSheetData = result.rows;
-                
                 html = '<table class="data-table table table-hover">';
                 html += '<thead class="table-light"><tr>';
-                
-                // إضافة الرؤوس
                 result.headers.forEach(header => {
                     html += `<th>${header}</th>`;
                 });
-                
-                // إضافة عمود الإجراءات إذا كانت الورقة قابلة للتعديل
-                if (sheetName === 'معلومات المذيعين - لايكي' || sheetName === 'الشحن') {
+                if (sheetName.includes('معلومات المذيعين') || sheetName === 'الشحن' || sheetName.includes('راتب')) {
                     html += '<th>الإجراءات</th>';
                 }
-                
                 html += '</tr></thead><tbody>';
-                
-                // إضافة البيانات
                 result.rows.forEach((row, index) => {
                     const rowIndex = index + 2;
                     const rowId = `${sheetName.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '').toLowerCase()}-row-${rowIndex}`;
-                    
                     html += `<tr id="${rowId}">`;
-                    
                     row.forEach((cell, cellIndex) => {
-                        if ((sheetName === 'معلومات المذيعين - لايكي' || sheetName === 'معلومات المذيعين - سايا') && cellIndex === 9) {
+                        if (sheetName.includes('معلومات المذيعين') && cellIndex === 9) {
                             html += `<td class="transfer-to-cell">${cell || ''}</td>`;
                         } else {
                             html += `<td>${cell || ''}</td>`;
                         }
                     });
-                    
-                    // إضافة أزرار الإجراءات
-                    if (sheetName === 'معلومات المذيعين - لايكي' || sheetName === 'معلومات المذيعين - سايا') {
+                    if (sheetName.includes('معلومات المذيعين')) {
+                        const platformInSheetName = sheetName.includes('لايكي') ? 'likee' : 'saya';
                         html += `<td>
-                            <button class="btn btn-sm btn-outline-primary" onclick="editBroadcaster(${rowIndex})">
+                            <button class="btn btn-sm btn-outline-primary" onclick="editBroadcasterFromButton(event, ${rowIndex}, '${platformInSheetName}')">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="deleteBroadcaster(${rowIndex})">
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteBroadcaster(${rowIndex}, '${sheetName}')">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>`;
-                    } else if (sheetName === 'الشحن' || sheetName === 'الشحن - سايا') {
+                    } else if (sheetName === 'الشحن') {
                         html += `<td>
                             <button class="btn btn-sm btn-outline-primary" onclick="editShipping(${rowIndex})">
                                 <i class="fas fa-edit"></i>
@@ -2534,59 +2281,52 @@
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>`;
+                    } else if (sheetName.includes('راتب')) {
+                        // يمكنك إضافة أزرار للراتب إذا لزم
+                        html += `<td></td>`;
                     }
-                    
                     html += '</tr>';
                 });
-                
                 html += '</tbody></table>';
                 html += `<p class="text-muted mt-3">عدد السجلات: ${result.rows.length}</p>`;
             } else {
                 html = '<div class="alert alert-info">لا توجد بيانات في هذه الورقة.</div>';
                 currentSheetData = [];
             }
-            
             container.innerHTML = html;
         }
-        
         // دالة لتحميل إحصائيات لوحة التحكم
         function loadDashboardStats(platform) {
-            // هذه الدالة تحتاج إلى تحسين لجلب الإحصائيات الفعلية من Google Sheets
             setTimeout(() => {
                 if (platform === 'likee') {
-                    document.getElementById('likee-total-broadcasters').textContent = '25';
-                    document.getElementById('likee-active-broadcasters').textContent = '18';
-                    document.getElementById('likee-total-salary').textContent = '42,500';
-                    document.getElementById('likee-total-shipping').textContent = '3,200';
+                    document.getElementById('likee-total-broadcasters').textContent = '0';
+                    document.getElementById('likee-active-broadcasters').textContent = '0';
+                    document.getElementById('likee-total-salary').textContent = '0';
+                    document.getElementById('likee-total-shipping').textContent = '0';
                 } else if (platform === 'saya') {
-                    document.getElementById('saya-total-broadcasters').textContent = '18';
-                    document.getElementById('saya-active-broadcasters').textContent = '12';
-                    document.getElementById('saya-total-salary').textContent = '28,750';
-                    document.getElementById('saya-total-shipping').textContent = '2,100';
+                    // يمكنك إضافة عناصر HTML لعرض إحصائيات Saya إذا لزم الأمر
                 }
             }, 500);
         }
-        
         // دالة لتحميل البيانات الأولية
         function loadInitialData(platform) {
             if (platform === 'likee') {
                 loadSheetData('لايكي - داتا');
                 loadSheetData('الشحن');
                 loadSheetData('معلومات المذيعين - لايكي');
+                loadSheetData('داتا راتب - لايكي');
             } else if (platform === 'saya') {
                 loadSheetData('سايا - داتا');
-                loadSheetData('الشحن - سايا');
+                loadSheetData('الشحن');
                 loadSheetData('معلومات المذيعين - سايا');
+                loadSheetData('داتا راتب - سايا');
             }
         }
-        
         // دالة لمعالجة رفع ملف Excel
         function handleExcelUpload(files) {
             if (files.length === 0) return;
-            
             const file = files[0];
             const reader = new FileReader();
-            
             reader.onload = function(e) {
                 try {
                     const data = new Uint8Array(e.target.result);
@@ -2594,12 +2334,10 @@
                     const firstSheetName = workbook.SheetNames[0];
                     const worksheet = workbook.Sheets[firstSheetName];
                     const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                    
                     if (jsonData.length === 0) {
                         alert('الملف لا يحتوي على بيانات');
                         return;
                     }
-                    
                     excelData = jsonData;
                     displayExcelPreview(jsonData);
                 } catch (error) {
@@ -2607,25 +2345,19 @@
                     alert('حدث خطأ في قراءة ملف Excel: ' + error.message);
                 }
             };
-            
             reader.onerror = function() {
                 alert('حدث خطأ في قراءة الملف');
             };
-            
             reader.readAsArrayBuffer(file);
         }
-        
         // عرض معاينة بيانات Excel
         function displayExcelPreview(data) {
             const container = document.getElementById('excel-data-container');
             let html = '<table class="data-table table table-hover"><thead class="table-light"><tr>';
-            
             data[0].forEach(header => {
                 html += `<th>${header || ''}</th>`;
             });
-            
             html += '</tr></thead><tbody>';
-            
             for (let i = 1; i < Math.min(data.length, 11); i++) {
                 html += '<tr>';
                 data[i].forEach(cell => {
@@ -2633,51 +2365,68 @@
                 });
                 html += '</tr>';
             }
-            
             html += '</tbody></table>';
-            
             if (data.length > 11) {
                 html += `<p class="text-muted mt-2">عرض ${Math.min(data.length-1, 10)} من ${data.length-1} صف</p>`;
             }
-            
             container.innerHTML = html;
             document.getElementById('excel-preview').classList.remove('d-none');
         }
-        
         // معالجة بيانات Excel
         function processExcelData() {
             if (!excelData || excelData.length === 0) {
                 alert('لا توجد بيانات لمعالجتها');
                 return;
             }
-            
             alert('تمت معالجة البيانات بنجاح! جاهزة للرفع إلى Google Sheets.');
         }
-        
         // رفع بيانات Excel إلى Google Sheets
         function uploadToSheets() {
             if (!excelData || excelData.length === 0) {
                 alert('لا توجد بيانات لرفعها');
                 return;
             }
-            
             if (!currentSheetName) {
                 alert('لم يتم تحديد ورقة الوجهة');
                 return;
             }
-            
             showLoading();
-            
-            // محاكاة الرفع إلى Google Sheets
-            setTimeout(() => {
+            const values = [];
+            for (let i = 1; i < excelData.length; i++) {
+                 const row = [];
+                 for (let j = 0; j < excelData[i].length; j++) {
+                     row.push(excelData[i][j] || '');
+                 }
+                 values.push(row);
+            }
+            let rowIndex = 2;
+            function uploadNextRow(index) {
+                if (index >= values.length) {
+                    hideLoading();
+                    alert('تم رفع البيانات بنجاح!');
+                    goBackToDashboard();
+                    loadSheetData(currentSheetName);
+                    return;
+                }
+                google.script.run
+                    .withSuccessHandler(() => {
+                        uploadNextRow(index + 1);
+                    })
+                    .withFailureHandler((error) => {
+                        hideLoading();
+                        console.error('Error uploading row:', error);
+                        alert('حدث خطأ في رفع البيانات للصف ' + (index + 2) + ': ' + error.message);
+                    })
+                    .writeSheetData(currentSheetName, values[index], rowIndex + index);
+            }
+            if (values.length > 0) {
+                uploadNextRow(0);
+            } else {
                 hideLoading();
-                alert('تم رفع البيانات بنجاح!');
-                goBackToDashboard();
-                loadSheetData(currentSheetName);
-            }, 2000);
+                alert('لا توجد بيانات لرفعها.');
+            }
         }
-        
-        // دالة لحفظ المذيع
+        // دالة لحفظ المذيع لمنصة Likee
         function saveBroadcaster() {
             const name = document.getElementById('broadcaster-search').value;
             const id = document.getElementById('broadcaster-id').value;
@@ -2690,56 +2439,117 @@
             const netSalary = document.getElementById('broadcaster-net-salary').value;
             const salaryTransfer = document.getElementById('broadcaster-salary-transfer').value;
             const notes = document.getElementById('broadcaster-notes').value;
-            
             if (!name || !id) {
                 alert('يرجى اختيار مذيع أو إدخال بيانات جديدة');
                 return;
             }
-            
             showLoading();
-            
-            // محاكاة الحفظ في Google Sheets
-            setTimeout(() => {
-                hideLoading();
-                alert('تم حفظ بيانات المذيع بنجاح!');
-                
-                // تحديث البيانات المحلية
-                const rowData = [name, id, fullname, city, office, phone, salary, shippingAmount, netSalary, salaryTransfer, notes];
-                
-                if (currentBroadcasterId !== null) {
-                    broadcasterInfoData[currentBroadcasterId - 2] = rowData;
-                } else {
-                    broadcasterInfoData.push(rowData);
-                }
-                
-                // تحديث العرض
-                updateBroadcasterTableWithShipping();
-                populateSalaryTransferDropdown();
-                clearBroadcasterForm();
-            }, 1500);
+            const rowData = [name, id, fullname, city, office, phone, salary, shippingAmount, netSalary, salaryTransfer, notes];
+            let rowIndex = null;
+            if (currentBroadcasterId !== null) {
+                rowIndex = currentBroadcasterId;
+            }
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    if (result.success) {
+                        alert('تم حفظ بيانات المذيع بنجاح!');
+                        if (rowIndex !== null) {
+                             broadcasterInfoData[rowIndex - 2] = rowData;
+                        } else {
+                             broadcasterInfoData.push(rowData);
+                        }
+                        updateBroadcasterTableWithShipping('likee');
+                        populateSalaryTransferDropdown();
+                        clearBroadcasterForm();
+                    } else {
+                        alert('فشل في حفظ البيانات: ' + result.message);
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error saving broadcaster:', error);
+                    alert('حدث خطأ في حفظ البيانات: ' + error.message);
+                })
+                .writeSheetData('معلومات المذيعين - لايكي', rowData, rowIndex);
         }
-        
+        // دالة لحفظ المذيع لمنصة Saya
+        function saveBroadcasterSaya() {
+            const name = document.getElementById('broadcaster-search-saya').value;
+            const id = document.getElementById('broadcaster-id-saya').value;
+            const fullname = document.getElementById('broadcaster-fullname-saya').value;
+            const city = document.getElementById('broadcaster-city-saya').value;
+            const office = document.getElementById('broadcaster-office-saya').value;
+            const phone = document.getElementById('broadcaster-phone-saya').value;
+            const salary = document.getElementById('broadcaster-salary-saya').value;
+            const shippingAmount = document.getElementById('broadcaster-shipping-amount-saya').value;
+            const netSalary = document.getElementById('broadcaster-net-salary-saya').value;
+            const salaryTransfer = document.getElementById('broadcaster-salary-transfer-saya').value;
+            const notes = document.getElementById('broadcaster-notes-saya').value;
+            if (!name || !id) {
+                alert('يرجى اختيار مذيع أو إدخال بيانات جديدة');
+                return;
+            }
+            showLoading();
+            const rowData = [name, id, fullname, city, office, phone, salary, shippingAmount, netSalary, salaryTransfer, notes];
+            let rowIndex = null;
+            if (currentBroadcasterId !== null) {
+                rowIndex = currentBroadcasterId;
+            }
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    if (result.success) {
+                        alert('تم حفظ بيانات المذيع بنجاح!');
+                        if (rowIndex !== null) {
+                             broadcasterInfoDataSaya[rowIndex - 2] = rowData;
+                        } else {
+                             broadcasterInfoDataSaya.push(rowData);
+                        }
+                        updateBroadcasterTableWithShipping('saya');
+                        populateSalaryTransferDropdownSaya();
+                        clearBroadcasterFormSaya();
+                    } else {
+                        alert('فشل في حفظ البيانات: ' + result.message);
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error saving broadcaster:', error);
+                    alert('حدث خطأ في حفظ البيانات: ' + error.message);
+                })
+                .writeSheetData('معلومات المذيعين - سايا', rowData, rowIndex);
+        }
         // دالة لحذف المذيع
-        function deleteBroadcaster(rowIndex) {
+        function deleteBroadcaster(rowIndex, sheetName) {
             if (!confirm('هل أنت متأكد من حذف هذا المذيع؟')) return;
-            
             showLoading();
-            
-            // محاكاة الحذف من Google Sheets
-            setTimeout(() => {
-                hideLoading();
-                alert('تم حذف المذيع بنجاح!');
-                
-                // تحديث البيانات المحلية
-                broadcasterInfoData.splice(rowIndex - 2, 1);
-                
-                // تحديث العرض
-                updateBroadcasterTableWithShipping();
-                populateSalaryTransferDropdown();
-            }, 1500);
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    if (result.success) {
+                        alert('تم حذف المذيع بنجاح!');
+                        if (sheetName === 'معلومات المذيعين - لايكي') {
+                            broadcasterInfoData.splice(rowIndex - 2, 1);
+                            updateBroadcasterTableWithShipping('likee');
+                            populateSalaryTransferDropdown();
+                        } else if (sheetName === 'معلومات المذيعين - سايا') {
+                            broadcasterInfoDataSaya.splice(rowIndex - 2, 1);
+                            updateBroadcasterTableWithShipping('saya');
+                            populateSalaryTransferDropdownSaya();
+                        }
+                    } else {
+                        alert('فشل في حذف البيانات: ' + result.message);
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error deleting broadcaster:', error);
+                    alert('حدث خطأ في حذف البيانات: ' + error.message);
+                })
+                .deleteSheetRow(sheetName, rowIndex);
         }
-        
-        // دالة لمسح نموذج المذيع
+        // دالة لمسح نموذج المذيع لمنصة Likee
         function clearBroadcasterForm() {
             document.getElementById('broadcaster-search').value = '';
             document.getElementById('broadcaster-id').value = '';
@@ -2752,152 +2562,302 @@
             document.getElementById('broadcaster-net-salary').value = '0';
             document.getElementById('broadcaster-salary-transfer').value = '';
             document.getElementById('broadcaster-notes').value = '';
-            
             currentBroadcasterId = null;
-            
-            // إزالة التحديد من الصفوف
             const rows = document.querySelectorAll('#broadcaster-data-container tbody tr');
             rows.forEach(row => row.classList.remove('selected-row'));
         }
-        
-        // دالة لحفظ الشحنة
+        // دالة لمسح نموذج المذيع لمنصة Saya
+        function clearBroadcasterFormSaya() {
+            document.getElementById('broadcaster-search-saya').value = '';
+            document.getElementById('broadcaster-id-saya').value = '';
+            document.getElementById('broadcaster-fullname-saya').value = '';
+            document.getElementById('broadcaster-city-saya').value = '';
+            document.getElementById('broadcaster-office-saya').value = '';
+            document.getElementById('broadcaster-phone-saya').value = '';
+            document.getElementById('broadcaster-salary-saya').value = '';
+            document.getElementById('broadcaster-shipping-amount-saya').value = '0';
+            document.getElementById('broadcaster-net-salary-saya').value = '0';
+            document.getElementById('broadcaster-salary-transfer-saya').value = '';
+            document.getElementById('broadcaster-notes-saya').value = '';
+            currentBroadcasterId = null;
+            const rows = document.querySelectorAll('#broadcaster-data-container-saya tbody tr');
+            rows.forEach(row => row.classList.remove('selected-row'));
+        }
+        // دالة لحفظ الشحنة لمنصة Likee
         function saveShipping() {
             const name = document.getElementById('shipping-broadcaster-search').value;
             const id = document.getElementById('shipping-broadcaster-id').value;
             const amount = document.getElementById('shipping-amount').value;
             const date = document.getElementById('shipping-date').value;
             const notes = document.getElementById('shipping-notes').value;
-            
             if (!name || !id || !amount) {
                 alert('يرجى تعبئة جميع الحقول المطلوبة');
                 return;
             }
-            
             showLoading();
-            
-            // محاكاة الحفظ في Google Sheets
-            setTimeout(() => {
-                hideLoading();
-                alert('تم حفظ بيانات الشحنة بنجاح!');
-                
-                // تحديث البيانات المحلية
-                const rowData = ['لايكي', name, id, amount, date, notes];
-                
-                if (currentShippingId !== null) {
-                    shippingData[currentShippingId - 2] = rowData;
-                } else {
-                    shippingData.push(rowData);
-                }
-                
-                // تحديث العرض
-                calculateShippingSummary();
-                displayShippingSummary();
-                updateBroadcasterTableWithShipping();
-                clearShippingForm();
-            }, 1500);
+            const rowData = ['لايكي', name, id, amount, date, notes];
+            let rowIndex = null;
+            if (currentShippingId !== null) {
+                rowIndex = currentShippingId;
+            }
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    if (result.success) {
+                        alert('تم حفظ بيانات الشحنة بنجاح!');
+                        if (rowIndex === null) {
+                            shippingData.push(rowData);
+                        } else {
+                            shippingData[rowIndex - 2] = rowData;
+                        }
+                        calculateShippingSummary();
+                        displayShippingSummary();
+                        displayShippingSummarySaya();
+                        updateBroadcasterTableWithShipping('likee');
+                        updateBroadcasterTableWithShipping('saya');
+                        clearShippingForm();
+                    } else {
+                        alert('فشل في حفظ البيانات: ' + result.message);
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error saving shipping:', error);
+                    alert('حدث خطأ في حفظ البيانات: ' + error.message);
+                })
+                .writeSheetData('الشحن', rowData, rowIndex);
         }
-        
-        // دالة لتعديل الشحنة
+        // دالة لحفظ الشحنة لمنصة Saya
+        function saveShippingSaya() {
+            const name = document.getElementById('shipping-broadcaster-search-saya').value;
+            const id = document.getElementById('shipping-broadcaster-id-saya').value;
+            const amount = document.getElementById('shipping-amount-saya').value;
+            const date = document.getElementById('shipping-date-saya').value;
+            const notes = document.getElementById('shipping-notes-saya').value;
+            if (!name || !id || !amount) {
+                alert('يرجى تعبئة جميع الحقول المطلوبة');
+                return;
+            }
+            showLoading();
+            const rowData = ['سايا', name, id, amount, date, notes];
+            let rowIndex = null;
+            if (currentShippingId !== null) {
+                rowIndex = currentShippingId;
+            }
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    if (result.success) {
+                        alert('تم حفظ بيانات الشحنة بنجاح!');
+                        if (rowIndex === null) {
+                            shippingData.push(rowData);
+                        } else {
+                            shippingData[rowIndex - 2] = rowData;
+                        }
+                        calculateShippingSummary();
+                        displayShippingSummary();
+                        displayShippingSummarySaya();
+                        updateBroadcasterTableWithShipping('likee');
+                        updateBroadcasterTableWithShipping('saya');
+                        clearShippingFormSaya();
+                    } else {
+                        alert('فشل في حفظ البيانات: ' + result.message);
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error saving shipping:', error);
+                    alert('حدث خطأ في حفظ البيانات: ' + error.message);
+                })
+                .writeSheetData('الشحن', rowData, rowIndex);
+        }
+        // دالة لتعديل الشحنة لمنصة Likee
         function editShipping(rowIndex) {
             if (!currentSheetData || currentSheetData.length < (rowIndex - 1)) {
                 alert('لا توجد بيانات للشحنة المحددة');
                 return;
             }
-            
-            const shipping = currentSheetData[rowIndex - 2];
+            const shipping = shippingData[rowIndex - 2];
             if (!shipping) return;
-            
             document.getElementById('shipping-broadcaster-search').value = shipping[1] || '';
             document.getElementById('shipping-broadcaster-id').value = shipping[2] || '';
             document.getElementById('shipping-amount').value = shipping[3] || '';
             document.getElementById('shipping-date').value = shipping[4] || '';
             document.getElementById('shipping-notes').value = shipping[5] || '';
-            
             currentShippingId = rowIndex;
-            
-            // إزالة التحديد من الصفوف الأخرى
             const rows = document.querySelectorAll('#shipping-data-container tbody tr');
             rows.forEach(row => row.classList.remove('selected-row'));
-            
-            // تحديد الصف الحالي
             const rowId = `الشحن-row-${rowIndex}`.replace(/[^a-zA-Z0-9\-]/g, '');
             const currentRow = document.getElementById(rowId);
             if (currentRow) {
                 currentRow.classList.add('selected-row');
             }
         }
-        
-        // دالة لحذف الشحنة
+        // دالة لتعديل الشحنة لمنصة Saya
+        function editShippingSaya(rowIndex) {
+            if (!currentSheetData || currentSheetData.length < (rowIndex - 1)) {
+                alert('لا توجد بيانات للشحنة المحددة');
+                return;
+            }
+            const shipping = shippingData[rowIndex - 2];
+            if (!shipping) return;
+            document.getElementById('shipping-broadcaster-search-saya').value = shipping[1] || '';
+            document.getElementById('shipping-broadcaster-id-saya').value = shipping[2] || '';
+            document.getElementById('shipping-amount-saya').value = shipping[3] || '';
+            document.getElementById('shipping-date-saya').value = shipping[4] || '';
+            document.getElementById('shipping-notes-saya').value = shipping[5] || '';
+            currentShippingId = rowIndex;
+            const rows = document.querySelectorAll('#shipping-data-container-saya tbody tr');
+            rows.forEach(row => row.classList.remove('selected-row'));
+            const rowId = `الشحن-row-${rowIndex}`.replace(/[^a-zA-Z0-9\-]/g, '');
+            const currentRow = document.getElementById(rowId);
+            if (currentRow) {
+                currentRow.classList.add('selected-row');
+            }
+        }
+        // دالة لحذف الشحنة لمنصة Likee
         function deleteShipping(rowIndex) {
             if (!confirm('هل أنت متأكد من حذف هذه الشحنة؟')) return;
-            
             showLoading();
-            
-            // محاكاة الحذف من Google Sheets
-            setTimeout(() => {
-                hideLoading();
-                alert('تم حذف الشحنة بنجاح!');
-                
-                // تحديث البيانات المحلية
-                shippingData.splice(rowIndex - 2, 1);
-                
-                // تحديث العرض
-                calculateShippingSummary();
-                displayShippingSummary();
-                updateBroadcasterTableWithShipping();
-            }, 1500);
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    if (result.success) {
+                        alert('تم حذف الشحنة بنجاح!');
+                        shippingData.splice(rowIndex - 2, 1);
+                        calculateShippingSummary();
+                        displayShippingSummary();
+                        displayShippingSummarySaya();
+                        updateBroadcasterTableWithShipping('likee');
+                        updateBroadcasterTableWithShipping('saya');
+                    } else {
+                        alert('فشل في حذف البيانات: ' + result.message);
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error deleting shipping:', error);
+                    alert('حدث خطأ في حذف البيانات: ' + error.message);
+                })
+                .deleteSheetRow('الشحن', rowIndex);
         }
-        
-        // دالة لمسح نموذج الشحنة
+        // دالة لحذف الشحنة لمنصة Saya
+        function deleteShippingSaya(rowIndex) {
+            if (!confirm('هل أنت متأكد من حذف هذه الشحنة؟')) return;
+            showLoading();
+            google.script.run
+                .withSuccessHandler((result) => {
+                    hideLoading();
+                    if (result.success) {
+                        alert('تم حذف الشحنة بنجاح!');
+                        shippingData.splice(rowIndex - 2, 1);
+                        calculateShippingSummary();
+                        displayShippingSummary();
+                        displayShippingSummarySaya();
+                        updateBroadcasterTableWithShipping('likee');
+                        updateBroadcasterTableWithShipping('saya');
+                    } else {
+                        alert('فشل في حذف البيانات: ' + result.message);
+                    }
+                })
+                .withFailureHandler((error) => {
+                    hideLoading();
+                    console.error('Error deleting shipping:', error);
+                    alert('حدث خطأ في حذف البيانات: ' + error.message);
+                })
+                .deleteSheetRow('الشحن', rowIndex);
+        }
+        // دالة لمسح نموذج الشحنة لمنصة Likee
         function clearShippingForm() {
             document.getElementById('shipping-broadcaster-search').value = '';
             document.getElementById('shipping-broadcaster-id').value = '';
             document.getElementById('shipping-amount').value = '';
-            
-            // تعيين تاريخ اليوم تلقائياً
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('shipping-date').value = today;
-            
             document.getElementById('shipping-notes').value = '';
-            
             currentShippingId = null;
-            
-            // إزالة التحديد من الصفوف
             const rows = document.querySelectorAll('#shipping-data-container tbody tr');
             rows.forEach(row => row.classList.remove('selected-row'));
         }
-        
+        // دالة لمسح نموذج الشحنة لمنصة Saya
+        function clearShippingFormSaya() {
+            document.getElementById('shipping-broadcaster-search-saya').value = '';
+            document.getElementById('shipping-broadcaster-id-saya').value = '';
+            document.getElementById('shipping-amount-saya').value = '';
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('shipping-date-saya').value = today;
+            document.getElementById('shipping-notes-saya').value = '';
+            currentShippingId = null;
+            const rows = document.querySelectorAll('#shipping-data-container-saya tbody tr');
+            rows.forEach(row => row.classList.remove('selected-row'));
+        }
         // دالة لعرض الأخطاء
         function showError(error) {
             hideLoading();
             alert('حدث خطأ: ' + (error.message || error));
         }
-        
         // دالة لعرض نافذة التحميل
         function showLoading() {
             document.getElementById('loadingOverlay').style.display = 'flex';
         }
-        
         // دالة لإخفاء نافذة التحميل
         function hideLoading() {
             document.getElementById('loadingOverlay').style.display = 'none';
         }
-        
+        // دالة للحصول على بيانات المذيع من البيانات الرسمية باستخدام الاسم أو الإيدي
+        function getBroadcasterInfoFromOfficial(searchTerm, platform) {
+            let dataArray = [];
+            if (platform === 'likee') {
+                dataArray = officialData;
+            } else if (platform === 'saya') {
+                dataArray = officialDataSaya;
+            }
+            if (!dataArray || dataArray.length === 0) return null;
+            for (let i = 0; i < dataArray.length; i++) {
+                const row = dataArray[i];
+                if (row[0] === searchTerm || row[1] === searchTerm) {
+                    return {
+                        name: row[0],
+                        id: row[1],
+                        salary: row[2] || '0'
+                    };
+                }
+            }
+            return null;
+        }
+        // دالة للحصول على بيانات المذيع من بيانات معلومات المذيعين باستخدام الإيدي
+        function getBroadcasterInfoFromInfo(id, platform) {
+            let dataArray = [];
+            if (platform === 'likee') {
+                dataArray = broadcasterInfoData;
+            } else if (platform === 'saya') {
+                dataArray = broadcasterInfoDataSaya;
+            }
+            if (!dataArray || dataArray.length === 0) return null;
+            for (let i = 0; i < dataArray.length; i++) {
+                const row = dataArray[i];
+                if (row[1] === id) {
+                    return {
+                        name: row[0],
+                        id: row[1],
+                        shipping: row[7] || '0'
+                    };
+                }
+            }
+            return null;
+        }
         // تهيئة التطبيق عند التحميل
         document.addEventListener('DOMContentLoaded', function() {
-            // تفعيل سحب وإفلات الملفات
             const uploadSection = document.getElementById('excel-upload-area');
             if (uploadSection) {
                 uploadSection.addEventListener('dragover', function(e) {
                     e.preventDefault();
                     this.classList.add('drag-over');
                 });
-                
                 uploadSection.addEventListener('dragleave', function(e) {
                     e.preventDefault();
                     this.classList.remove('drag-over');
                 });
-                
                 uploadSection.addEventListener('drop', function(e) {
                     e.preventDefault();
                     this.classList.remove('drag-over');
@@ -2905,141 +2865,379 @@
                         handleExcelUpload(e.dataTransfer.files);
                     }
                 });
-                
                 uploadSection.addEventListener('click', function() {
                     document.getElementById('excel-file').click();
                 });
-                
-                document.getElementById('excel-file').addEventListener('change', (e) => {
+                document.getElementById('excel-file').addEventListener('change', function(e) {
                     handleExcelUpload(e.target.files);
                 });
             }
-            
-            // تعيين تاريخ اليوم لحقل تاريخ الشحن
+            const searchInputs = [
+                'likee-search',
+                'broadcaster-search',
+                'broadcaster-table-search',
+                'shipping-search',
+                'shipping-broadcaster-search',
+                'salary-search',
+                'saya-search',
+                'broadcaster-search-saya',
+                'broadcaster-table-search-saya',
+                'shipping-search-saya',
+                'shipping-broadcaster-search-saya',
+                'salary-search-saya'
+            ];
+            searchInputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.addEventListener('input', function() {
+                        const searchValue = this.value.trim();
+                        const suggestionsContainer = document.getElementById(inputId + '-suggestions');
+                        if (searchValue.length >= 1) {
+                            showSearchSuggestions(inputId, searchValue);
+                        } else {
+                            suggestionsContainer.style.display = 'none';
+                        }
+                    });
+                    input.addEventListener('blur', function () {
+                        setTimeout(() => {
+                            const suggestionsContainer = document.getElementById(inputId + '-suggestions');
+                            if (suggestionsContainer) {
+                                suggestionsContainer.style.display = 'none';
+                            }
+                        }, 200);
+                    });
+                }
+            });
+            document.addEventListener('click', function(e) {
+                if (!e.target.matches('.search-suggestions, .search-suggestions *')) {
+                    const suggestionsContainers = document.querySelectorAll('.search-suggestions');
+                    suggestionsContainers.forEach(container => {
+                        container.style.display = 'none';
+                    });
+                }
+            });
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('shipping-date').value = today;
-            
-            // إضافة مستمع للحدث عند تغيير قيمة الراتب أو الشحن لحساب الراتب الصافي
+            document.getElementById('shipping-date-saya').value = today;
             document.getElementById('broadcaster-salary').addEventListener('input', calculateNetSalary);
             document.getElementById('broadcaster-shipping-amount').addEventListener('input', calculateNetSalary);
-            
-            // إعداد حقل بحث المذيع في نموذج الشحن
+            document.getElementById('broadcaster-salary-saya').addEventListener('input', calculateNetSalarySaya);
+            document.getElementById('broadcaster-shipping-amount-saya').addEventListener('input', calculateNetSalarySaya);
             updateShippingBroadcasterSearch();
-            
-            // إعداد حقل بحث المذيع في نموذج معلومات المذيعين
+            updateShippingBroadcasterSearchSaya();
             setupBroadcasterSearch();
-            
-            // تحميل البيانات الأولية
-            loadInitialData('likee');
+            setupBroadcasterSearchSaya();
         });
-        
-        // دالة لتحميل بيانات الرواتب
-        function loadSalaryData() {
-            showLoading();
-            
-            // محاكاة جلب بيانات الرواتب
-            setTimeout(() => {
-                hideLoading();
-                
-                // بيانات وهمية للعرض
-                const salaryData = {
-                    headers: ["الاسم", "الإيدي", "الراتب الأساسي", "الشحن", "الراتب الصافي", "الحالة"],
-                    rows: [
-                        ["أحمد محمد", "L123", "1500", "200", "1300", "نشط"],
-                        ["محمد علي", "L124", "2000", "150", "1850", "نشط"],
-                        ["سارة عبد الله", "L125", "1800", "300", "1500", "غير نشط"],
-                        ["فاطمة إبراهيم", "L126", "2200", "100", "2100", "نشط"],
-                        ["خالد حسن", "S456", "1700", "250", "1450", "نشط"],
-                        ["نورة أحمد", "S457", "1900", "180", "1720", "نشط"]
-                    ]
-                };
-                
-                // تحديث الإحصائيات
-                const totalBroadcasters = salaryData.rows.length;
-                let totalSalary = 0;
-                let totalShipping = 0;
-                let netSalary = 0;
-                
-                salaryData.rows.forEach(row => {
-                    totalSalary += parseFloat(row[2]) || 0;
-                    totalShipping += parseFloat(row[3]) || 0;
-                    netSalary += parseFloat(row[4]) || 0;
+        // عرض اقتراحات البحث
+        function showSearchSuggestions(inputId, searchValue) {
+            const suggestionsContainer = document.getElementById(inputId + '-suggestions');
+            if (!suggestionsContainer) return;
+            let suggestions = [];
+            let dataArray = [];
+            if (inputId === 'likee-search' || inputId === 'broadcaster-table-search' || inputId === 'shipping-search') {
+                dataArray = officialData;
+            } else if (inputId === 'broadcaster-search') {
+                dataArray = officialData;
+            } else if (inputId === 'broadcaster-table-search') {
+                dataArray = broadcasterInfoData;
+            } else if (inputId === 'salary-search') {
+                dataArray = salaryData;
+            } else if (inputId === 'saya-search' || inputId === 'broadcaster-table-search-saya' || inputId === 'shipping-search-saya') {
+                dataArray = officialDataSaya;
+            } else if (inputId === 'broadcaster-search-saya') {
+                dataArray = officialDataSaya;
+            } else if (inputId === 'broadcaster-table-search-saya') {
+                dataArray = broadcasterInfoDataSaya;
+            } else if (inputId === 'salary-search-saya') {
+                dataArray = salaryDataSaya;
+            }
+            if (dataArray && dataArray.length > 0) {
+                dataArray.forEach(row => {
+                    const name = row[0] || '';
+                    const id = row[1] || '';
+                    if (name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                        id.toLowerCase().includes(searchValue.toLowerCase())) {
+                        suggestions.push(`${name} (${id})`);
+                    }
                 });
-                
-                document.getElementById('salary-total-broadcasters').textContent = totalBroadcasters;
-                document.getElementById('salary-total-amount').textContent = totalSalary.toLocaleString();
-                document.getElementById('salary-total-shipping').textContent = totalShipping.toLocaleString();
-                document.getElementById('salary-net-amount').textContent = netSalary.toLocaleString();
-                
-                // عرض بيانات الرواتب
-                let html = '<table class="data-table table table-hover">';
-                html += '<thead class="table-light"><tr>';
-                
-                salaryData.headers.forEach(header => {
-                    html += `<th>${header}</th>`;
+            }
+            const filteredSuggestions = suggestions.filter(suggestion =>
+                suggestion.toLowerCase().includes(searchValue.toLowerCase())
+            );
+            if (filteredSuggestions.length > 0) {
+                let html = '';
+                filteredSuggestions.forEach(suggestion => {
+                    html += `<div class="search-suggestion-item" onclick="selectSuggestion('${inputId}', '${suggestion.replace(/'/g, "\\'")}')">${suggestion}</div>`;
                 });
-                
-                html += '</tr></thead><tbody>';
-                
-                salaryData.rows.forEach((row, index) => {
-                    html += `<tr>`;
-                    row.forEach(cell => {
-                        html += `<td>${cell}</td>`;
+                suggestionsContainer.innerHTML = html;
+                suggestionsContainer.style.display = 'block';
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+        }
+        // اختيار اقتراح من البحث
+        function selectSuggestion(inputId, suggestion) {
+            document.getElementById(inputId).value = suggestion;
+            document.getElementById(inputId + '-suggestions').style.display = 'none';
+            if (inputId === 'broadcaster-search' || inputId === 'shipping-broadcaster-search') {
+                const match = suggestion.match(/\(([^)]+)\)/);
+                if (match) {
+                    const id = match[1];
+                    const name = suggestion.split(' (')[0];
+                    document.getElementById(inputId === 'broadcaster-search' ? 'broadcaster-id' : 'shipping-broadcaster-id').value = id;
+                    if (inputId === 'broadcaster-search') {
+                        const existingInfo = broadcasterInfoData.find(row => row[1] === id);
+                        if (existingInfo) {
+                            const rowIndex = broadcasterInfoData.findIndex(row => row[1] === id) + 2;
+                            editBroadcaster(rowIndex);
+                        } else {
+                            const officialInfo = getBroadcasterInfoFromOfficial(id, 'likee');
+                            if (officialInfo) {
+                                document.getElementById('broadcaster-fullname').value = officialInfo.name;
+                                document.getElementById('broadcaster-city').value = 'القاهرة';
+                                document.getElementById('broadcaster-office').value = 'المعادي';
+                                document.getElementById('broadcaster-phone').value = '01001234567';
+                                document.getElementById('broadcaster-salary').value = officialInfo.salary;
+                                const totalShipping = shippingSummary[id] || 0;
+                                document.getElementById('broadcaster-shipping-amount').value = totalShipping.toFixed(2);
+                                calculateNetSalary();
+                            }
+                        }
+                    }
+                    if (inputId === 'shipping-broadcaster-search') {
+                        const today = new Date().toISOString().split('T')[0];
+                        document.getElementById('shipping-date').value = today;
+                    }
+                }
+            }
+            if (inputId === 'broadcaster-search-saya' || inputId === 'shipping-broadcaster-search-saya') {
+                const match = suggestion.match(/\(([^)]+)\)/);
+                if (match) {
+                    const id = match[1];
+                    const name = suggestion.split(' (')[0];
+                    document.getElementById(inputId === 'broadcaster-search-saya' ? 'broadcaster-id-saya' : 'shipping-broadcaster-id-saya').value = id;
+                    if (inputId === 'broadcaster-search-saya') {
+                        const existingInfo = broadcasterInfoDataSaya.find(row => row[1] === id);
+                        if (existingInfo) {
+                            const rowIndex = broadcasterInfoDataSaya.findIndex(row => row[1] === id) + 2;
+                            editBroadcasterSaya(rowIndex);
+                        } else {
+                            const officialInfo = getBroadcasterInfoFromOfficial(id, 'saya');
+                            if (officialInfo) {
+                                document.getElementById('broadcaster-fullname-saya').value = officialInfo.name;
+                                document.getElementById('broadcaster-city-saya').value = 'القاهرة';
+                                document.getElementById('broadcaster-office-saya').value = 'المعادي';
+                                document.getElementById('broadcaster-phone-saya').value = '01001234567';
+                                document.getElementById('broadcaster-salary-saya').value = officialInfo.salary;
+                                const totalShipping = shippingSummary[id] || 0;
+                                document.getElementById('broadcaster-shipping-amount-saya').value = totalShipping.toFixed(2);
+                                calculateNetSalarySaya();
+                            }
+                        }
+                    }
+                    if (inputId === 'shipping-broadcaster-search-saya') {
+                        const today = new Date().toISOString().split('T')[0];
+                        document.getElementById('shipping-date-saya').value = today;
+                    }
+                }
+            }
+            if (inputId === 'likee-search') {
+                const match = suggestion.match(/\(([^)]+)\)/);
+                if (match) {
+                    const id = match[1];
+                    const rows = document.querySelectorAll('#likee-sheet-data-container tbody tr');
+                    rows.forEach(row => {
+                        const cells = row.querySelectorAll('td');
+                        if (cells.length > 1 && cells[1].textContent === id) {
+                            row.classList.add('selected-row');
+                            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        } else {
+                            row.classList.remove('selected-row');
+                        }
                     });
-                    html += `</tr>`;
+                }
+            }
+            if (inputId === 'saya-search') {
+                const match = suggestion.match(/\(([^)]+)\)/);
+                if (match) {
+                    const id = match[1];
+                    const rows = document.querySelectorAll('#saya-sheet-data-container tbody tr');
+                    rows.forEach(row => {
+                        const cells = row.querySelectorAll('td');
+                        if (cells.length > 1 && cells[1].textContent === id) {
+                            row.classList.add('selected-row');
+                            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        } else {
+                            row.classList.remove('selected-row');
+                        }
+                    });
+                }
+            }
+            if (inputId === 'broadcaster-table-search') {
+                const match = suggestion.match(/\(([^)]+)\)/);
+                if (match) {
+                    const id = match[1];
+                    const rows = document.querySelectorAll('#broadcaster-data-container tbody tr');
+                    rows.forEach(row => {
+                        const cells = row.querySelectorAll('td');
+                        if (cells.length > 1 && cells[1].textContent === id) {
+                            row.classList.add('selected-row');
+                            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            const rowIndex = Array.from(rows).indexOf(row) + 2;
+                            editBroadcaster(rowIndex);
+                        } else {
+                            row.classList.remove('selected-row');
+                        }
+                    });
+                }
+            }
+            if (inputId === 'broadcaster-table-search-saya') {
+                const match = suggestion.match(/\(([^)]+)\)/);
+                if (match) {
+                    const id = match[1];
+                    const rows = document.querySelectorAll('#broadcaster-data-container-saya tbody tr');
+                    rows.forEach(row => {
+                        const cells = row.querySelectorAll('td');
+                        if (cells.length > 1 && cells[1].textContent === id) {
+                            row.classList.add('selected-row');
+                            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            const rowIndex = Array.from(rows).indexOf(row) + 2;
+                            editBroadcasterSaya(rowIndex);
+                        } else {
+                            row.classList.remove('selected-row');
+                        }
+                    });
+                }
+            }
+        }
+        // إعداد حقل بحث المذيع في نموذج معلومات المذيعين
+        function setupBroadcasterSearch() {
+            const broadcasterSearch = document.getElementById('broadcaster-search');
+            if (broadcasterSearch) {
+                broadcasterSearch.addEventListener('input', function() {
+                    const searchValue = this.value.trim();
+                    const suggestionsContainer = document.getElementById('broadcaster-search-suggestions');
+                    if (searchValue.length >= 1) {
+                        showBroadcasterSearchSuggestions(searchValue, suggestionsContainer, 'likee');
+                    } else {
+                        suggestionsContainer.style.display = 'none';
+                    }
                 });
-                
-                html += '</tbody></table>';
-                html += `<p class="text-muted mt-3">عدد السجلات: ${salaryData.rows.length}</p>`;
-                
-                document.getElementById('salary-details-container').innerHTML = html;
-                
-                alert('تم تحميل بيانات الرواتب بنجاح!');
-            }, 1500);
+                broadcasterSearch.addEventListener('blur', function() {
+                    setTimeout(() => {
+                        const suggestionsContainer = document.getElementById('broadcaster-search-suggestions');
+                        if (suggestionsContainer) {
+                            suggestionsContainer.style.display = 'none';
+                        }
+                    }, 200);
+                });
+            }
         }
-        
-        // دالة لمعالجة الرواتب
-        function processSalaries() {
-            showLoading();
-            
-            // محاكاة معالجة الرواتب
-            setTimeout(() => {
-                hideLoading();
-                alert('تمت معالجة الرواتب بنجاح! يمكنك الآن تصدير التقرير.');
-            }, 2000);
+        // إعداد حقل بحث المذيع في نموذج معلومات المذيعين لمنصة Saya
+        function setupBroadcasterSearchSaya() {
+            const broadcasterSearch = document.getElementById('broadcaster-search-saya');
+            if (broadcasterSearch) {
+                broadcasterSearch.addEventListener('input', function() {
+                    const searchValue = this.value.trim();
+                    const suggestionsContainer = document.getElementById('broadcaster-search-suggestions-saya');
+                    if (searchValue.length >= 1) {
+                        showBroadcasterSearchSuggestions(searchValue, suggestionsContainer, 'saya');
+                    } else {
+                        suggestionsContainer.style.display = 'none';
+                    }
+                });
+                broadcasterSearch.addEventListener('blur', function() {
+                    setTimeout(() => {
+                        const suggestionsContainer = document.getElementById('broadcaster-search-suggestions-saya');
+                        if (suggestionsContainer) {
+                            suggestionsContainer.style.display = 'none';
+                        }
+                    }, 200);
+                });
+            }
         }
-        
-        // دالة لتصدير الرواتب إلى Excel
-        function exportSalaryToExcel() {
-            showLoading();
-            
-            // محاكاة التصدير إلى Excel
-            setTimeout(() => {
-                hideLoading();
-                alert('تم تصدير بيانات الرواتب إلى Excel بنجاح!');
-            }, 1500);
+        // عرض اقتراحات المذيعين في نموذج معلومات المذيعين
+        function showBroadcasterSearchSuggestions(searchValue, suggestionsContainer, platform) {
+            if (!suggestionsContainer) {
+                return;
+            }
+            let suggestions = [];
+            let dataArray = [];
+            if (platform === 'likee') {
+                dataArray = officialData;
+            } else if (platform === 'saya') {
+                dataArray = officialDataSaya;
+            }
+            if (dataArray && dataArray.length > 0) {
+                dataArray.forEach(row => {
+                    const name = row[0] || '';
+                    const id = row[1] || '';
+                    if (name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                        id.toLowerCase().includes(searchValue.toLowerCase())) {
+                        suggestions.push(`${name} (${id})`);
+                    }
+                });
+            }
+            if (suggestions.length > 0) {
+                let html = '';
+                suggestions.forEach(suggestion => {
+                    html += `<div class="search-suggestion-item" onclick="selectBroadcasterFromSuggestions('${suggestion.replace(/'/g, "\\'")}', '${platform}')">${suggestion}</div>`;
+                });
+                suggestionsContainer.innerHTML = html;
+                suggestionsContainer.style.display = 'block';
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
         }
-        
-        // دالة لتصدير الرواتب إلى PDF
-        function exportSalaryToPDF() {
-            showLoading();
-            
-            // محاكاة التصدير إلى PDF
-            setTimeout(() => {
-                hideLoading();
-                alert('تم تصدير بيانات الرواتب إلى PDF بنجاح!');
-            }, 1500);
-        }
-        
-        // دالة لاختبار الاتصال بـ Google Sheets
-        function testConnection() {
-            showLoading();
-            
-            // محاكاة اختبار الاتصال
-            setTimeout(() => {
-                hideLoading();
-                alert('الاتصال بـ Google Sheets يعمل بشكل صحيح!');
-            }, 1000);
+        // اختيار المذيع من اقتراحات حقل بحث معلومات المذيعين
+        function selectBroadcasterFromSuggestions(suggestion, platform) {
+            if (platform === 'likee') {
+                document.getElementById('broadcaster-search').value = suggestion;
+                document.getElementById('broadcaster-search-suggestions').style.display = 'none';
+                const match = suggestion.match(/\(([^)]+)\)/);
+                if (match) {
+                    const id = match[1];
+                    const name = suggestion.split(' (')[0];
+                    document.getElementById('broadcaster-id').value = id;
+                    const existingInfo = broadcasterInfoData.find(row => row[1] === id);
+                    if (existingInfo) {
+                        const rowIndex = broadcasterInfoData.findIndex(row => row[1] === id) + 2;
+                        editBroadcaster(rowIndex);
+                    } else {
+                        const officialInfo = getBroadcasterInfoFromOfficial(id, 'likee');
+                        if (officialInfo) {
+                            document.getElementById('broadcaster-fullname').value = officialInfo.name;
+                            document.getElementById('broadcaster-salary').value = officialInfo.salary || '0';
+                            const totalShipping = shippingSummary[id] || 0;
+                            document.getElementById('broadcaster-shipping-amount').value = totalShipping.toFixed(2);
+                            calculateNetSalary();
+                        }
+                    }
+                }
+            } else if (platform === 'saya') {
+                document.getElementById('broadcaster-search-saya').value = suggestion;
+                document.getElementById('broadcaster-search-suggestions-saya').style.display = 'none';
+                const match = suggestion.match(/\(([^)]+)\)/);
+                if (match) {
+                    const id = match[1];
+                    const name = suggestion.split(' (')[0];
+                    document.getElementById('broadcaster-id-saya').value = id;
+                    const existingInfo = broadcasterInfoDataSaya.find(row => row[1] === id);
+                    if (existingInfo) {
+                        const rowIndex = broadcasterInfoDataSaya.findIndex(row => row[1] === id) + 2;
+                        editBroadcasterSaya(rowIndex);
+                    } else {
+                        const officialInfo = getBroadcasterInfoFromOfficial(id, 'saya');
+                        if (officialInfo) {
+                            document.getElementById('broadcaster-fullname-saya').value = officialInfo.name;
+                            document.getElementById('broadcaster-salary-saya').value = officialInfo.salary || '0';
+                            const totalShipping = shippingSummary[id] || 0;
+                            document.getElementById('broadcaster-shipping-amount-saya').value = totalShipping.toFixed(2);
+                            calculateNetSalarySaya();
+                        }
+                    }
+                }
+            }
         }
     </script>
 </body>
