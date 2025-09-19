@@ -2558,4 +2558,16 @@
         }
     </script>
 </body>
+    <script>
+  const url = "https://script.google.com/macros/s/AKfycbx7EOal7dntFbBh3k8AYvMsV6TpVezDrpU1ebmnHtTvLOt7Y1DozcryDlpb9lKpu-sxUQ/exec";
+
+  // نجرب نطلب الداتا
+  fetch(url)
+    .then(res => res.text()) // مؤقتًا نخليها text بدل json
+    .then(data => {
+      console.log("البيانات المستلمة:", data);
+      document.body.innerHTML += "<pre>" + data + "</pre>";
+    })
+    .catch(err => console.error("خطأ:", err));
+</script>
 </html>
